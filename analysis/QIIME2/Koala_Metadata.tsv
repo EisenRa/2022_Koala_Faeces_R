@@ -1,81 +1,81 @@
-#SampleID	LabID	BarcodeSequence	LinkerPrimerSequence	Koala_Month	Koala	Month	MonthID	Date	Sex	Age	Reared_In_Cleland	Population	Collection_number	CollTree_Fed	Present_indiet_analysis	Description
-sample-17	sample-17_S17_L001_R1_001.fastq			Cin_March	Cin	March	3	10.3.2015	Female	Mature	N	Mountain_Lagoon	3	A.costata	Y	Wildkoala
-sample-31	sample-31_S31_L001_R1_001.fastq			Cin_April	Cin	April	4	10.4.2015	Female	Mature	N	Mountain_Lagoon	4	E.agglomerata	Y	Wildkoala
-sample-49	sample-49_S49_L001_R1_001.fastq			Cin_May	Cin	May	5	8.5.2015	Female	Mature	N	Mountain_Lagoon	5	C.gummifera	Y	Wildkoala
-sample-56	sample-56_S54_L001_R1_001.fastq			Cin_June	Cin	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	E. deanei	Y	Wildkoala
-sample-66	sample-66_S64_L001_R1_001.fastq			Cin_July	Cin	July	7	24.7.2015	Female	Mature	N	Mountain_Lagoon	7	E. deanei	Y	Wildkoala
-sample-8	sample-8_S8_L001_R1_001.fastq			Phasco_March	Phasco	March	3	10.3.2015	Female	Mature	N	Mountain_Lagoon	3	E. punctata	Y	Wildkoala
-sample-39	sample-39_S39_L001_R1_001.fastq			Phasco_April	Phasco	April	4	26.4.2015	Female	Mature	N	Mountain_Lagoon	4	E.deanei	Y	Wildkoala
-sample-42	sample-42_S42_L001_R1_001.fastq			Phasco_May	Phasco	May	5	9.5.2015	Female	Mature	N	Mountain_Lagoon	5	E.piperita	Y	Wildkoala
-sample-57	sample-57_S55_L001_R1_001.fastq			Phasco_June	Phasco	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	A.elata	Y	Wildkoala
-sample-64	sample-64_S62_L001_R1_001.fastq			Phasco_July	Phasco	July	7	25.7.2015	Female	Mature	N	Mountain_Lagoon	7	E.deanei	Y	Wildkoala
-sample-24	sample-24_S24_L001_R1_001.fastq			Reus_March	Reus	March	3	15.3.2015	Female	Mature	N	Mountain_Lagoon	3	E.piperita	Y	Wildkoala
-sample-61	sample-61_S59_L001_R1_001.fastq			Reus_June	Reus	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
-sample-70	sample-70_S66_L001_R1_001.fastq			Reus_July	Reus	July	7	25.7.2015	Female	Mature	N	Mountain_Lagoon	7	E.punctata	Y	Wildkoala
-sample-4	sample-4_S4_L001_R1_001.fastq			Tos_January	Tos	January	1	30.1.2015	Male	Mature	N	Mountain_Lagoon	1	E.punctata	N	Wildkoala
-sample-22	sample-22_S22_L001_R1_001.fastq			Tos_March	Tos	March	3	3.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
-sample-35	sample-35_S35_L001_R1_001.fastq			Tos_April	Tos	April	4	26.4.2015	Male	Mature	N	Mountain_Lagoon	4	E.agglomerata	Y	Wildkoala
-sample-27	sample-27_S27_L001_R1_001.fastq			Tos_May	Tos	May	5	9.5.2015	Male	Mature	N	Mountain_Lagoon	5	E.punctata	Y	Wildkoala
-sample-50	sample-50_S50_L001_R1_001.fastq			Tos_June	Tos	June	6	26.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
-sample-2	sample-2_S2_L001_R1_001.fastq			Uno_January	Uno	January	1	29.1.2015	Male	Mature	N	Mountain_Lagoon	1	E.piperita	N	Wildkoala
-sample-9	sample-9_S9_L001_R1_001.fastq			Uno_February	Uno	February	2	28.2.2015	Male	Mature	N	Mountain_Lagoon	2	S.glomulifera	N	Wildkoala
-sample-18	sample-18_S18_L001_R1_001.fastq			Uno_March	Uno	March	3	6.3.2015	Male	Mature	N	Mountain_Lagoon	3	E.agglomerata	Y	Wildkoala
-sample-34	sample-34_S34_L001_R1_001.fastq			Uno_April	Uno	April	4	25.4.2015	Male	Mature	N	Mountain_Lagoon	4	E.punctata	Y	Wildkoala
-sample-46	sample-46_S46_L001_R1_001.fastq			Uno_May	Uno	May	5	9.5.2015	Male	Mature	N	Mountain_Lagoon	5	E.piperita	Y	Wildkoala
-sample-53	sample-53_S51_L001_R1_001.fastq			Uno_June	Uno	June	6	26.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.deanei	Y	Wildkoala
-Cleland-R1	Cleland-R1_2020_BL1_R1.fastq			Blaze_April	Blaze	April	4	3.4.2020	Male	Mature	N	Kangaroo Island	1	E.viminalis	N	Wildkoala
-Cleland-R2	Cleland-R2_2020_BL2_R1.fastq			Blaze_April	Blaze	April	4	17.4.2020	Male	Mature	N	Kangaroo Island	5	E. leucoxylon	N	Wildkoala
-Cleland-R3	Cleland-R3_2020_BL3_R1.fastq			Blaze_April	Blaze	April	4	27.4.2020	Male	Mature	N	Kangaroo Island	8	E. leucoxylon	N	Wildkoala
-Cleland-R4	Cleland-R4_2020_BL4_R1.fastq			Blaze_April	Blaze	April	4	9.4.2020	Male	Mature	N	Kangaroo Island	3	"E.globulus,"	N	Wildkoala
-Cleland-R5	Cleland-R5_2020_BL5_R1.fastq			Blaze_April	Blaze	April	4	6.4.2020	Male	Mature	N	Kangaroo Island	2	E. globulus	N	Wildkoala
-Cleland-R6	Cleland-R6_2020_BL6_R1.fastq			Blaze_April	Blaze	April	4	14.4.2020	Male	Mature	N	Kangaroo Island	4	E. viminalis	N	Wildkoala
-Cleland-R7	Cleland-R7_2020_BL7_R1.fastq			Blaze_April	Blaze	April	4	24.4.2020	Male	Mature	N	Kangaroo Island	7	NA	N	Wildkoala
-Cleland-R8	Cleland-R8_2020_BL8_R1.fastq			Blaze_April	Blaze	April	4	20.4.2020	Male	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
-Cleland-R9	Cleland-R9_2020_BY1_R1.fastq			Byron_April	Byron	April	4	17.4.2020	Male	Mature	N	Kangaroo Island	5	E. platypus	N	Wildkoala
-Cleland-R10	Cleland-R10_2020_BY2_R1.fastq			Byron_April	Byron	April	4	14.4.2020	Male	Mature	N	Kangaroo Island	4	E. globulus	N	Wildkoala
-Cleland-R11	Cleland-R11_2020_BY3_R1.fastq			Byron_April	Byron	April	4	20.4.2020	Male	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
-Cleland-R12	Cleland-R12_2020_BY4_R1.fastq			Byron_April	Byron	April	4	27.4.2020	Male	Mature	N	Kangaroo Island	8	E. viminalis	N	Wildkoala
-Cleland-R13	Cleland-R13_2020_BY5_R1.fastq			Byron_April	Byron	April	4	3.4.2020	Male	Mature	N	Kangaroo Island	1	E. viminalis	N	Wildkoala
-Cleland-R14	Cleland-R14_2020_BY6_R1.fastq			Byron_April	Byron	April	4	9.4.2020	Male	Mature	N	Kangaroo Island	3	E. obliqua	N	Wildkoala
-Cleland-R15	Cleland-R15_2020_BY7_R1.fastq			Byron_April	Byron	April	4	6.4.2020	Male	Mature	N	Kangaroo Island	2	E. leucoxylon	N	Wildkoala
-Cleland-R16	Cleland-R16_2020_BY8_R1.fastq			Byron_April	Byron	April	4	24.4.2020	Male	Mature	N	Kangaroo Island	7	E. camaldulensis	N	Wildkoala
-Cleland-R17	Cleland-R17_2020_CL1_R1.fastq			Claudette_April	Claudette	April	4	24.4.2020	Female	Mature	N	Kangaroo Island	7	E. leucoxylon	N	Wildkoala
-Cleland-R18	Cleland-R18_2020_CL2_R1.fastq			Claudette_April	Claudette	April	4	17.4.2020	Female	Mature	N	Kangaroo Island	5	E. viminalis	N	Wildkoala
-Cleland-R19	Cleland-R19_2020_CL3_R1.fastq			Claudette_April	Claudette	April	4	20.4.2020	Female	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
-Cleland-R20	Cleland-R20_2020_CL4_R1.fastq			Claudette_April	Claudette	April	4	3.4.2020	Female	Mature	N	Kangaroo Island	1	E. leucoxylon	N	Wildkoala
-Cleland-R21	Cleland-R21_2020_CL5_R1.fastq			Claudette_April	Claudette	April	4	9.4.2020	Female	Mature	N	Kangaroo Island	3	E. obliqua	N	Wildkoala
-Cleland-R22	Cleland-R22_2020_CL6_R1.fastq			Claudette_April	Claudette	April	4	6.4.2020	Female	Mature	N	Kangaroo Island	2	E. obliqua	N	Wildkoala
-Cleland-R23	Cleland-R23_2020_CL7_R1.fastq			Claudette_April	Claudette	April	4	14.4.2020	Female	Mature	N	Kangaroo Island	4	E. viminalis	N	Wildkoala
-Cleland-R24	Cleland-R24_2020_CL8_R1.fastq			Claudette_April	Claudette	April	4	27.4.2020	Female	Mature	N	Kangaroo Island	8	NA	N	Wildkoala
-Cleland-R28	Cleland-R28_2020_G1_R1.fastq			George_April	George	April	4	17.4.2020	Male	Mature	Y	Mainland SA	5	E. platypus	N	Captivekoala
-Cleland-R29	Cleland-R29_2020_G2_R1.fastq			George_April	George	April	4	27.4.2020	Male	Mature	Y	Mainland SA	8	E. viminalis	N	Captivekoala
-Cleland-R30	Cleland-R30_2020_G3_R1.fastq			George_April	George	April	4	14.4.2020	Male	Mature	Y	Mainland SA	4	E. leucoxylon	N	Captivekoala
-Cleland-R31	Cleland-R31_2020_G4_R1.fastq			George_April	George	April	4	9.4.2020	Male	Mature	Y	Mainland SA	3	E. platypus	N	Captivekoala
-Cleland-R32	Cleland-R32_2020_G5_R1.fastq			George_April	George	April	4	6.4.2020	Male	Mature	Y	Mainland SA	2	E. occidentalis	N	Captivekoala
-Cleland-R33	Cleland-R33_2020_G6_R1.fastq			George_April	George	April	4	20.4.2020	Male	Mature	Y	Mainland SA	6	E. viminalis	N	Captivekoala
-Cleland-R34	Cleland-R34_2020_G7_R1.fastq			George_April	George	April	4	3.4.2020	Male	Mature	Y	Mainland SA	1	E. leucoxylon	N	Captivekoala
-Cleland-R35	Cleland-R35_2020_G8_R1.fastq			George_April	George	April	4	24.4.2020	Male	Mature	Y	Mainland SA	7	E. platypus	N	Captivekoala
-Cleland-R36	Cleland-R36_2020_LE1_R1.fastq			Leo_April	Leo	April	4	27.4.2020	Male	Mature	Y	Mainland SA	8	E. viminalis	N	Captivekoala
-Cleland-R37	Cleland-R37_2020_LE2_R1.fastq			Leo_April	Leo	April	4	20.4.2020	Male	Mature	Y	Mainland SA	6	E. viminalis	N	Captivekoala
-Cleland-R38	Cleland-R38_2020_LE3_R1.fastq			Leo_April	Leo	April	4	24.4.2020	Male	Mature	Y	Mainland SA	7	E. leucoxylon	N	Captivekoala
-Cleland-R39	Cleland-R39_2020_LE4_R1.fastq			Leo_April	Leo	April	4	9.4.2020	Male	Mature	Y	Mainland SA	3	E. leucoxylon	N	Captivekoala
-Cleland-R40	Cleland-R40_2020_LE5_R1.fastq			Leo_April	Leo	April	4	6.4.2020	Male	Mature	Y	Mainland SA	2	E. obliqua	N	Captivekoala
-Cleland-R41	Cleland-R41_2020_LE6_R1.fastq			Leo_April	Leo	April	4	14.4.2020	Male	Mature	Y	Mainland SA	4	E. occidentalis	N	Captivekoala
-Cleland-R42	Cleland-R42_2020_LE7_R1.fastq			Leo_April	Leo	April	4	3.4.2020	Male	Mature	Y	Mainland SA	1	E. leucoxylon	N	Captivekoala
-Cleland-R43	Cleland-R43_2020_LE8_R1.fastq			Leo_April	Leo	April	4	17.4.2020	Male	Mature	Y	Mainland SA	5	E. leucoxylon	N	Captivekoala
-Cleland-R44	Cleland-R44_2020_LO1_R1.fastq			Lola_April	Lola	April	4	15.4.2020	Female	Mature	N	Mainland SA	1	NA	N	Wildkoala
-Cleland-R45	Cleland-R45_2020_LO2_R1.fastq			Lola_May	Lola	May	5	1.5.2020	Female	Mature	N	Mainland SA	6	E. globulus	N	Wildkoala
-Cleland-R46	Cleland-R46_2020_LO3_R1.fastq			Lola_May	Lola	May	5	4.5.2020	Female	Mature	N	Mainland SA	7	E. camaldulensis	N	Wildkoala
-Cleland-R47	Cleland-R47_2020_LO4_R1.fastq			Lola_May	Lola	May	5	8.5.2020	Female	Mature	N	Mainland SA	8	E. camaldulensis	N	Wildkoala
-Cleland-R48	Cleland-R48_2020_LO5_R1.fastq			Lola_April	Lola	April	4	17.4.2020	Female	Mature	N	Mainland SA	2	NA	N	Wildkoala
-Cleland-R49	Cleland-R49_2020_LO6_R1.fastq			Lola_April	Lola	April	4	20.4.2020	Female	Mature	N	Mainland SA	3	NA	N	Wildkoala
-Cleland-R50	Cleland-R50_2020_LO7_R1.fastq			Lola_April	Lola	April	4	24.4.2020	Female	Mature	N	Mainland SA	4	NA	N	Wildkoala
-Cleland-R51	Cleland-R51_2020_LO8_R1.fastq			Lola_April	Lola	April	4	27.4.2020	Female	Mature	N	Mainland SA	5	E. camaldulensis	N	Wildkoala
-Cleland-R52	Cleland-R52_2020_T1_R1.fastq			Theo_April	Theo	April	4	24.4.2020	Male	Immature	Y	Mainland SA	7	E. leucoxylon	N	Captivekoala
-Cleland-R53	Cleland-R53_2020_T2_R1.fastq			Theo_April	Theo	April	4	17.4.2020	Male	Immature	Y	Mainland SA	5	NA	N	Captivekoala
-Cleland-R54	Cleland-R54_2020_T3_R1.fastq			Theo_April	Theo	April	4	14.4.2020	Male	Immature	Y	Mainland SA	4	E. leucoxylon	N	Captivekoala
-Cleland-R55	Cleland-R55_2020_T4_R1.fastq			Theo_April	Theo	April	4	20.4.2020	Male	Immature	Y	Mainland SA	6	E. obliqua	N	Captivekoala
-Cleland-R56	Cleland-R56_2020_T5_R1.fastq			Theo_April	Theo	April	4	6.4.2020	Male	Immature	Y	Mainland SA	2	E. viminalis	N	Captivekoala
-Cleland-R57	Cleland-R57_2020_T6_R1.fastq			Theo_April	Theo	April	4	27.4.2020	Male	Immature	Y	Mainland SA	8	E. camaldulensis	N	Captivekoala
-Cleland-R58	Cleland-R58_2020_T7_R1.fastq			Theo_April	Theo	April	4	9.4.2020	Male	Immature	Y	Mainland SA	3	E. camaldulensis	N	Captivekoala
-Cleland-R59	Cleland-R59_2020_T8_R1.fastq			Theo_April	Theo	April	4	3.4.2020	Male	Immature	Y	Mainland SA	1	E. camaldulensis	N	Control
+SampleID	LabID	BarcodeSequence	LinkerPrimerSequence	Koala_Collection	Koala_Month	Koala	Month	MonthID	Date	Sex	Age	Reared_In_Cleland	Population	Collection_number	CollTree_Fed	Present_indiet_analysis	Description
+sample-17	sample-17_S17_L001_R1_001.fastq			Cin_1	Cin_March	Cin	March	3	10.3.2015	Female	Mature	N	Mountain_Lagoon	3	A.costata	Y	Wildkoala
+sample-31	sample-31_S31_L001_R1_001.fastq			Cin_2	Cin_April	Cin	April	4	10.4.2015	Female	Mature	N	Mountain_Lagoon	4	E.agglomerata	Y	Wildkoala
+sample-49	sample-49_S49_L001_R1_001.fastq			Cin_3	Cin_May	Cin	May	5	8.5.2015	Female	Mature	N	Mountain_Lagoon	5	C.gummifera	Y	Wildkoala
+sample-56	sample-56_S54_L001_R1_001.fastq			Cin_4	Cin_June	Cin	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	E. deanei	Y	Wildkoala
+sample-66	sample-66_S64_L001_R1_001.fastq			Cin_5	Cin_July	Cin	July	7	24.7.2015	Female	Mature	N	Mountain_Lagoon	7	E. deanei	Y	Wildkoala
+sample-8	sample-8_S8_L001_R1_001.fastq			Phasco_1	Phasco_March	Phasco	March	3	10.3.2015	Female	Mature	N	Mountain_Lagoon	3	E. punctata	Y	Wildkoala
+sample-39	sample-39_S39_L001_R1_001.fastq			Phasco_2	Phasco_April	Phasco	April	4	26.4.2015	Female	Mature	N	Mountain_Lagoon	4	E.deanei	Y	Wildkoala
+sample-42	sample-42_S42_L001_R1_001.fastq			Phasco_3	Phasco_May	Phasco	May	5	9.5.2015	Female	Mature	N	Mountain_Lagoon	5	E.piperita	Y	Wildkoala
+sample-57	sample-57_S55_L001_R1_001.fastq			Phasco_4	Phasco_June	Phasco	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	A.elata	Y	Wildkoala
+sample-64	sample-64_S62_L001_R1_001.fastq			Phasco_5	Phasco_July	Phasco	July	7	25.7.2015	Female	Mature	N	Mountain_Lagoon	7	E.deanei	Y	Wildkoala
+sample-24	sample-24_S24_L001_R1_001.fastq			Reus_1	Reus_March	Reus	March	3	15.3.2015	Female	Mature	N	Mountain_Lagoon	3	E.piperita	Y	Wildkoala
+sample-61	sample-61_S59_L001_R1_001.fastq			Reus_2	Reus_June	Reus	June	6	27.6.2015	Female	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
+sample-70	sample-70_S66_L001_R1_001.fastq			Reus_3	Reus_July	Reus	July	7	25.7.2015	Female	Mature	N	Mountain_Lagoon	7	E.punctata	Y	Wildkoala
+sample-4	sample-4_S4_L001_R1_001.fastq			Tos_1	Tos_January	Tos	January	1	30.1.2015	Male	Mature	N	Mountain_Lagoon	1	E.punctata	N	Wildkoala
+sample-22	sample-22_S22_L001_R1_001.fastq			Tos_2	Tos_March	Tos	March	3	3.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
+sample-35	sample-35_S35_L001_R1_001.fastq			Tos_3	Tos_April	Tos	April	4	26.4.2015	Male	Mature	N	Mountain_Lagoon	4	E.agglomerata	Y	Wildkoala
+sample-27	sample-27_S27_L001_R1_001.fastq			Tos_4	Tos_May	Tos	May	5	9.5.2015	Male	Mature	N	Mountain_Lagoon	5	E.punctata	Y	Wildkoala
+sample-50	sample-50_S50_L001_R1_001.fastq			Tos_5	Tos_June	Tos	June	6	26.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.punctata	Y	Wildkoala
+sample-2	sample-2_S2_L001_R1_001.fastq			Uno_1	Uno_January	Uno	January	1	29.1.2015	Male	Mature	N	Mountain_Lagoon	1	E.piperita	N	Wildkoala
+sample-9	sample-9_S9_L001_R1_001.fastq			Uno_2	Uno_February	Uno	February	2	28.2.2015	Male	Mature	N	Mountain_Lagoon	2	S.glomulifera	N	Wildkoala
+sample-18	sample-18_S18_L001_R1_001.fastq			Uno_3	Uno_March	Uno	March	3	6.3.2015	Male	Mature	N	Mountain_Lagoon	3	E.agglomerata	Y	Wildkoala
+sample-34	sample-34_S34_L001_R1_001.fastq			Uno_4	Uno_April	Uno	April	4	25.4.2015	Male	Mature	N	Mountain_Lagoon	4	E.punctata	Y	Wildkoala
+sample-46	sample-46_S46_L001_R1_001.fastq			Uno_5	Uno_May	Uno	May	5	9.5.2015	Male	Mature	N	Mountain_Lagoon	5	E.piperita	Y	Wildkoala
+sample-53	sample-53_S51_L001_R1_001.fastq			Uno_6	Uno_June	Uno	June	6	26.6.2015	Male	Mature	N	Mountain_Lagoon	6	E.deanei	Y	Wildkoala
+Cleland-R1	Cleland-R1_2020_BL1_R1.fastq			Blaze_1	Blaze_April	Blaze	April	4	3.4.2020	Male	Mature	N	Kangaroo Island	1	E.viminalis	N	Wildkoala
+Cleland-R2	Cleland-R2_2020_BL2_R1.fastq			Blaze_5	Blaze_April	Blaze	April	4	17.4.2020	Male	Mature	N	Kangaroo Island	5	E. leucoxylon	N	Wildkoala
+Cleland-R3	Cleland-R3_2020_BL3_R1.fastq			Blaze_8	Blaze_April	Blaze	April	4	27.4.2020	Male	Mature	N	Kangaroo Island	8	E. leucoxylon	N	Wildkoala
+Cleland-R4	Cleland-R4_2020_BL4_R1.fastq			Blaze_3	Blaze_April	Blaze	April	4	9.4.2020	Male	Mature	N	Kangaroo Island	3	"E.globulus,"	N	Wildkoala
+Cleland-R5	Cleland-R5_2020_BL5_R1.fastq			Blaze_2	Blaze_April	Blaze	April	4	6.4.2020	Male	Mature	N	Kangaroo Island	2	E. globulus	N	Wildkoala
+Cleland-R6	Cleland-R6_2020_BL6_R1.fastq			Blaze_4	Blaze_April	Blaze	April	4	14.4.2020	Male	Mature	N	Kangaroo Island	4	E. viminalis	N	Wildkoala
+Cleland-R7	Cleland-R7_2020_BL7_R1.fastq			Blaze_7	Blaze_April	Blaze	April	4	24.4.2020	Male	Mature	N	Kangaroo Island	7	NA	N	Wildkoala
+Cleland-R8	Cleland-R8_2020_BL8_R1.fastq			Blaze_6	Blaze_April	Blaze	April	4	20.4.2020	Male	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
+Cleland-R9	Cleland-R9_2020_BY1_R1.fastq			Byron_5	Byron_April	Byron	April	4	17.4.2020	Male	Mature	N	Kangaroo Island	5	E. platypus	N	Wildkoala
+Cleland-R10	Cleland-R10_2020_BY2_R1.fastq			Byron_4	Byron_April	Byron	April	4	14.4.2020	Male	Mature	N	Kangaroo Island	4	E. globulus	N	Wildkoala
+Cleland-R11	Cleland-R11_2020_BY3_R1.fastq			Byron_6	Byron_April	Byron	April	4	20.4.2020	Male	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
+Cleland-R12	Cleland-R12_2020_BY4_R1.fastq			Byron_8	Byron_April	Byron	April	4	27.4.2020	Male	Mature	N	Kangaroo Island	8	E. viminalis	N	Wildkoala
+Cleland-R13	Cleland-R13_2020_BY5_R1.fastq			Byron_1	Byron_April	Byron	April	4	3.4.2020	Male	Mature	N	Kangaroo Island	1	E. viminalis	N	Wildkoala
+Cleland-R14	Cleland-R14_2020_BY6_R1.fastq			Byron_3	Byron_April	Byron	April	4	9.4.2020	Male	Mature	N	Kangaroo Island	3	E. obliqua	N	Wildkoala
+Cleland-R15	Cleland-R15_2020_BY7_R1.fastq			Byron_2	Byron_April	Byron	April	4	6.4.2020	Male	Mature	N	Kangaroo Island	2	E. leucoxylon	N	Wildkoala
+Cleland-R16	Cleland-R16_2020_BY8_R1.fastq			Byron_7	Byron_April	Byron	April	4	24.4.2020	Male	Mature	N	Kangaroo Island	7	E. camaldulensis	N	Wildkoala
+Cleland-R17	Cleland-R17_2020_CL1_R1.fastq			Claudette_7	Claudette_April	Claudette	April	4	24.4.2020	Female	Mature	N	Kangaroo Island	7	E. leucoxylon	N	Wildkoala
+Cleland-R18	Cleland-R18_2020_CL2_R1.fastq			Claudette_5	Claudette_April	Claudette	April	4	17.4.2020	Female	Mature	N	Kangaroo Island	5	E. viminalis	N	Wildkoala
+Cleland-R19	Cleland-R19_2020_CL3_R1.fastq			Claudette_6	Claudette_April	Claudette	April	4	20.4.2020	Female	Mature	N	Kangaroo Island	6	E. obliqua	N	Wildkoala
+Cleland-R20	Cleland-R20_2020_CL4_R1.fastq			Claudette_1	Claudette_April	Claudette	April	4	3.4.2020	Female	Mature	N	Kangaroo Island	1	E. leucoxylon	N	Wildkoala
+Cleland-R21	Cleland-R21_2020_CL5_R1.fastq			Claudette_3	Claudette_April	Claudette	April	4	9.4.2020	Female	Mature	N	Kangaroo Island	3	E. obliqua	N	Wildkoala
+Cleland-R22	Cleland-R22_2020_CL6_R1.fastq			Claudette_2	Claudette_April	Claudette	April	4	6.4.2020	Female	Mature	N	Kangaroo Island	2	E. obliqua	N	Wildkoala
+Cleland-R23	Cleland-R23_2020_CL7_R1.fastq			Claudette_4	Claudette_April	Claudette	April	4	14.4.2020	Female	Mature	N	Kangaroo Island	4	E. viminalis	N	Wildkoala
+Cleland-R24	Cleland-R24_2020_CL8_R1.fastq			Claudette_8	Claudette_April	Claudette	April	4	27.4.2020	Female	Mature	N	Kangaroo Island	8	NA	N	Wildkoala
+Cleland-R28	Cleland-R28_2020_G1_R1.fastq			George_5	George_April	George	April	4	17.4.2020	Male	Mature	Y	Mainland SA	5	E. platypus	N	Captivekoala
+Cleland-R29	Cleland-R29_2020_G2_R1.fastq			George_8	George_April	George	April	4	27.4.2020	Male	Mature	Y	Mainland SA	8	E. viminalis	N	Captivekoala
+Cleland-R30	Cleland-R30_2020_G3_R1.fastq			George_4	George_April	George	April	4	14.4.2020	Male	Mature	Y	Mainland SA	4	E. leucoxylon	N	Captivekoala
+Cleland-R31	Cleland-R31_2020_G4_R1.fastq			George_3	George_April	George	April	4	9.4.2020	Male	Mature	Y	Mainland SA	3	E. platypus	N	Captivekoala
+Cleland-R32	Cleland-R32_2020_G5_R1.fastq			George_2	George_April	George	April	4	6.4.2020	Male	Mature	Y	Mainland SA	2	E. occidentalis	N	Captivekoala
+Cleland-R33	Cleland-R33_2020_G6_R1.fastq			George_6	George_April	George	April	4	20.4.2020	Male	Mature	Y	Mainland SA	6	E. viminalis	N	Captivekoala
+Cleland-R34	Cleland-R34_2020_G7_R1.fastq			George_1	George_April	George	April	4	3.4.2020	Male	Mature	Y	Mainland SA	1	E. leucoxylon	N	Captivekoala
+Cleland-R35	Cleland-R35_2020_G8_R1.fastq			George_7	George_April	George	April	4	24.4.2020	Male	Mature	Y	Mainland SA	7	E. platypus	N	Captivekoala
+Cleland-R36	Cleland-R36_2020_LE1_R1.fastq			Leo_8	Leo_April	Leo	April	4	27.4.2020	Male	Mature	Y	Mainland SA	8	E. viminalis	N	Captivekoala
+Cleland-R37	Cleland-R37_2020_LE2_R1.fastq			Leo_6	Leo_April	Leo	April	4	20.4.2020	Male	Mature	Y	Mainland SA	6	E. viminalis	N	Captivekoala
+Cleland-R38	Cleland-R38_2020_LE3_R1.fastq			Leo_7	Leo_April	Leo	April	4	24.4.2020	Male	Mature	Y	Mainland SA	7	E. leucoxylon	N	Captivekoala
+Cleland-R39	Cleland-R39_2020_LE4_R1.fastq			Leo_3	Leo_April	Leo	April	4	9.4.2020	Male	Mature	Y	Mainland SA	3	E. leucoxylon	N	Captivekoala
+Cleland-R40	Cleland-R40_2020_LE5_R1.fastq			Leo_2	Leo_April	Leo	April	4	6.4.2020	Male	Mature	Y	Mainland SA	2	E. obliqua	N	Captivekoala
+Cleland-R41	Cleland-R41_2020_LE6_R1.fastq			Leo_4	Leo_April	Leo	April	4	14.4.2020	Male	Mature	Y	Mainland SA	4	E. occidentalis	N	Captivekoala
+Cleland-R42	Cleland-R42_2020_LE7_R1.fastq			Leo_1	Leo_April	Leo	April	4	3.4.2020	Male	Mature	Y	Mainland SA	1	E. leucoxylon	N	Captivekoala
+Cleland-R43	Cleland-R43_2020_LE8_R1.fastq			Leo_5	Leo_April	Leo	April	4	17.4.2020	Male	Mature	Y	Mainland SA	5	E. leucoxylon	N	Captivekoala
+Cleland-R44	Cleland-R44_2020_LO1_R1.fastq			Lola_1	Lola_April	Lola	April	4	15.4.2020	Female	Mature	N	Mainland SA	1	NA	N	Wildkoala
+Cleland-R45	Cleland-R45_2020_LO2_R1.fastq			Lola_6	Lola_May	Lola	May	5	1.5.2020	Female	Mature	N	Mainland SA	6	E. globulus	N	Wildkoala
+Cleland-R46	Cleland-R46_2020_LO3_R1.fastq			Lola_7	Lola_May	Lola	May	5	4.5.2020	Female	Mature	N	Mainland SA	7	E. camaldulensis	N	Wildkoala
+Cleland-R47	Cleland-R47_2020_LO4_R1.fastq			Lola_8	Lola_May	Lola	May	5	8.5.2020	Female	Mature	N	Mainland SA	8	E. camaldulensis	N	Wildkoala
+Cleland-R48	Cleland-R48_2020_LO5_R1.fastq			Lola_2	Lola_April	Lola	April	4	17.4.2020	Female	Mature	N	Mainland SA	2	NA	N	Wildkoala
+Cleland-R49	Cleland-R49_2020_LO6_R1.fastq			Lola_3	Lola_April	Lola	April	4	20.4.2020	Female	Mature	N	Mainland SA	3	NA	N	Wildkoala
+Cleland-R50	Cleland-R50_2020_LO7_R1.fastq			Lola_4	Lola_April	Lola	April	4	24.4.2020	Female	Mature	N	Mainland SA	4	NA	N	Wildkoala
+Cleland-R51	Cleland-R51_2020_LO8_R1.fastq			Lola_5	Lola_April	Lola	April	4	27.4.2020	Female	Mature	N	Mainland SA	5	E. camaldulensis	N	Wildkoala
+Cleland-R52	Cleland-R52_2020_T1_R1.fastq			Theo_7	Theo_April	Theo	April	4	24.4.2020	Male	Immature	Y	Mainland SA	7	E. leucoxylon	N	Captivekoala
+Cleland-R53	Cleland-R53_2020_T2_R1.fastq			Theo_5	Theo_April	Theo	April	4	17.4.2020	Male	Immature	Y	Mainland SA	5	NA	N	Captivekoala
+Cleland-R54	Cleland-R54_2020_T3_R1.fastq			Theo_4	Theo_April	Theo	April	4	14.4.2020	Male	Immature	Y	Mainland SA	4	E. leucoxylon	N	Captivekoala
+Cleland-R55	Cleland-R55_2020_T4_R1.fastq			Theo_6	Theo_April	Theo	April	4	20.4.2020	Male	Immature	Y	Mainland SA	6	E. obliqua	N	Captivekoala
+Cleland-R56	Cleland-R56_2020_T5_R1.fastq			Theo_2	Theo_April	Theo	April	4	6.4.2020	Male	Immature	Y	Mainland SA	2	E. viminalis	N	Captivekoala
+Cleland-R57	Cleland-R57_2020_T6_R1.fastq			Theo_8	Theo_April	Theo	April	4	27.4.2020	Male	Immature	Y	Mainland SA	8	E. camaldulensis	N	Captivekoala
+Cleland-R58	Cleland-R58_2020_T7_R1.fastq			Theo_3	Theo_April	Theo	April	4	9.4.2020	Male	Immature	Y	Mainland SA	3	E. camaldulensis	N	Captivekoala
+Cleland-R59	Cleland-R59_2020_T8_R1.fastq			Theo_1	Theo_April	Theo	April	4	3.4.2020	Male	Immature	Y	Mainland SA	1	E. camaldulensis	N	Control
