@@ -413,7 +413,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-12-09
+<strong>Last updated:</strong> 2021-02-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -504,22 +504,24 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomEisenRa2020KoalaFaecesRtreecc6186c2a4b074c8dc77328b27ae83dd43ea0589targetblankcc6186ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/EisenRa/2020_Koala_Faeces_R/tree/cc6186c2a4b074c8dc77328b27ae83dd43ea0589" target="_blank">cc6186c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomEisenRa2020KoalaFaecesRtree5227bb9b9614ab0093c69075273fcf1e509d0012targetblank5227bb9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/EisenRa/2020_Koala_Faeces_R/tree/5227bb9b9614ab0093c69075273fcf1e509d0012" target="_blank">5227bb9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomEisenRa2020KoalaFaecesRtreecc6186c2a4b074c8dc77328b27ae83dd43ea0589targetblankcc6186ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomEisenRa2020KoalaFaecesRtree5227bb9b9614ab0093c69075273fcf1e509d0012targetblank5227bb9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/EisenRa/2020_Koala_Faeces_R/tree/cc6186c2a4b074c8dc77328b27ae83dd43ea0589" target="_blank">cc6186c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/EisenRa/2020_Koala_Faeces_R/tree/5227bb9b9614ab0093c69075273fcf1e509d0012" target="_blank">5227bb9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
-working directory clean
+Ignored files:
+    Ignored:    .Rproj.user/
+
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -562,6 +564,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/EisenRa/2020_Koala_Faeces_R/blob/2d068ef76ca2fa46b55db2ce5ec5d45548a8d647/analysis/R_analyses.Rmd" target="_blank">2d068ef</a>
+</td>
+<td>
+EisenRa
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/EisenRa/2020_Koala_Faeces_R/4ec0cde3acc812de800489bf81f67fef079f98b8/docs/R_analyses.html" target="_blank">4ec0cde</a>
+</td>
+<td>
+EisenRa
+</td>
+<td>
+2020-12-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/EisenRa/2020_Koala_Faeces_R/blob/cc6186c2a4b074c8dc77328b27ae83dd43ea0589/analysis/R_analyses.Rmd" target="_blank">cc6186c</a>
 </td>
 <td>
@@ -583,6 +619,340 @@ Add QIIME2 files, modify index.html
 </div>
 <div id="load-packages-import-data" class="section level2">
 <h2>Load packages, import data</h2>
+<pre class="r"><code>library(phyloseq)
+library(qiime2R)
+library(dplyr)</code></pre>
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(svglite)
+library(cowplot)
+library(gplots)</code></pre>
+<pre><code>Warning: package &#39;gplots&#39; was built under R version 4.0.3</code></pre>
+<pre><code>
+Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    lowess</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(scales)
+library(ggpubr)</code></pre>
+<pre><code>
+Attaching package: &#39;ggpubr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:cowplot&#39;:
+
+    get_legend</code></pre>
+<pre class="r"><code>library(tidyr)
+library(knitr)
+library(microbiome)</code></pre>
+<pre><code>
+microbiome R package (microbiome.github.com)
+    
+
+
+ Copyright (C) 2011-2020 Leo Lahti, 
+    Sudarshan Shetty et al. &lt;microbiome.github.io&gt;</code></pre>
+<pre><code>
+Attaching package: &#39;microbiome&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:scales&#39;:
+
+    alpha</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    alpha</code></pre>
+<pre><code>The following object is masked from &#39;package:base&#39;:
+
+    transform</code></pre>
+<pre class="r"><code>library(VennDiagram)</code></pre>
+<pre><code>Warning: package &#39;VennDiagram&#39; was built under R version 4.0.3</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Loading required package: futile.logger</code></pre>
+<pre><code>
+Attaching package: &#39;VennDiagram&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    rotate</code></pre>
+<pre class="r"><code>library(ggVennDiagram)
+library(eulerr)</code></pre>
+<pre><code>Warning: package &#39;eulerr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;eulerr&#39;:
+  method    from  
+  plot.venn gplots</code></pre>
+<pre><code>
+Attaching package: &#39;eulerr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:gplots&#39;:
+
+    venn</code></pre>
+<pre class="r"><code>library(forcats)
+
+
+#Import data into phyloseq object
+ps &lt;- qza_to_phyloseq(
+  features = &quot;analysis/QIIME2/Koala-table.qza&quot;,
+  tree = &quot;analysis/QIIME2/Koala-sepp-tree.qza&quot;,
+  taxonomy = &quot;analysis/QIIME2/Koala-SILVA-138.qza&quot;,
+  metadata = &quot;analysis/QIIME2/Koala_Metadata.tsv&quot;
+)
+
+#QIIME2 generated PCoA matrices
+pcoa_uwUniFrac_all &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-both-populations-32244/unweighted_unifrac_pcoa_results.qza&quot;)
+pcoa_wUniFrac_all &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-both-populations-32244/weighted_unifrac_pcoa_results.qza&quot;)
+pcoa_uwUniFrac_Cleland &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-Cleland-32244/unweighted_unifrac_pcoa_results.qza&quot;)
+pcoa_wUniFrac_Cleland &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-Cleland-32244/weighted_unifrac_pcoa_results.qza&quot;)
+pcoa_uwUniFrac_MtLagoon &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-MtLagoon-32244/unweighted_unifrac_pcoa_results.qza&quot;)
+pcoa_wUniFrac_MtLagoon &lt;- read_qza(
+  &quot;analysis/QIIME2/Core-metrics-MtLagoon-32244/weighted_unifrac_pcoa_results.qza&quot;)</code></pre>
+</div>
+<div id="pcoa-figures" class="section level2">
+<h2>PCoA figures</h2>
+<pre class="r"><code>#Load metadata
+metadata_pcoa &lt;- read.csv(&quot;analysis/QIIME2/Koala_Metadata.tsv&quot;, sep = &#39;\t&#39;)
+
+#Colour palette
+cbp2_beta &lt;- c(&quot;orange&quot;, &quot;black&quot;, &quot;red&quot;, &quot;blue&quot;)
+
+#Create a function to plot PCoAs using ggplot2
+plot.PCoA &lt;- function(pcoa, pcx, pcy, color) {
+  
+  pcoa$data$Vectors %&gt;%
+  rename(&quot;SampleID&quot;=SampleID) %&gt;%
+  left_join(metadata_pcoa) %&gt;%
+  
+  ggplot(aes_string(x=paste0(&quot;PC&quot;, pcx), y=paste0(&quot;PC&quot;, pcy), color=color)) +
+  scale_x_reverse() +
+  geom_point(size=7.5) +
+  stat_ellipse(type = &quot;norm&quot;, aes(fill = Koala)) +
+  geom_path(aes(label = Collection_number)) +
+#  geom_text(aes(label = Collection_number), color = &quot;black&quot;) +
+    
+  xlab(paste0(&quot;PC&quot;, pcx, &quot;: &quot; , round(100*pcoa$data$ProportionExplained[pcx]), &quot;%&quot;)) +
+  ylab(paste0(&quot;PC&quot;, pcy, &quot;: &quot; , round(100*pcoa$data$ProportionExplained[pcy]), &quot;%&quot;)) +
+  #Custom manual colours
+  scale_colour_manual(values=cbp2_beta) +
+  
+  theme(axis.text.x = element_text(face=&quot;bold&quot;, size=24), 
+        axis.text.y = element_text(face=&quot;bold&quot;, size=24),
+        axis.title.x = element_text(size=30, face=&quot;bold&quot;),
+        axis.title.y = element_text(size=30, face=&quot;bold&quot;),
+        axis.line = element_line(colour = &quot;black&quot;),
+        #Background panel
+        panel.background = element_rect(fill = &quot;White&quot;),
+        panel.grid.major = element_line(colour = &quot;white&quot;), 
+        panel.grid.minor = element_line(colour = &quot;white&quot;),
+        #Legend
+        legend.title = element_text(size=0),
+        legend.text = element_text(size=24),
+        legend.key = element_rect(fill = &quot;white&quot;, color = NA),
+        legend.key.size = unit(3.5, &quot;line&quot;))
+
+#Save image
+ggsave(filename = paste0(deparse(substitute(pcoa)), &quot;_&quot;, color, &quot;_PC&quot;, pcx, &quot;-&quot;, pcy, &quot;.png&quot;), 
+       width = 20, height = 11, dpi = 300)
+  
+}
+
+##Run through plots
+#Mtlagoon + Cleland
+plot.PCoA(pcoa_uwUniFrac_all, 1, 2, &quot;Population&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_uwUniFrac_all, 1, 3, &quot;Population&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_all, 1, 2, &quot;Population&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_all, 1, 3, &quot;Population&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>#Cleland only
+
+cbp2_beta &lt;- c(&quot;#999999&quot;, &quot;#E69F00&quot;, &quot;#56B4E9&quot;, &quot;#009E73&quot;, 
+               &quot;#F0E442&quot;, &quot;#0072B2&quot;, &quot;#D55E00&quot;, &quot;#CC79A7&quot;)
+
+plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 2, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 3, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_Cleland, 1, 2, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_Cleland, 1, 3, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre class="r"><code>#MtLagoon only
+cbp2_beta &lt;- c(&quot;#88CCEE&quot;, &quot;#CC6677&quot;, &quot;#DDCC77&quot;, &quot;#117733&quot;, &quot;#332288&quot;, &quot;#AA4499&quot;, 
+               &quot;#44AA99&quot;, &quot;#999933&quot;, &quot;#882255&quot;, &quot;#661100&quot;, &quot;#6699CC&quot;, &quot;#888888&quot;)
+
+plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 2, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 4, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 2, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 4, &quot;Koala&quot;)</code></pre>
+<pre><code>Joining, by = &quot;SampleID&quot;</code></pre>
+<pre><code>Warning: Ignoring unknown aesthetics: fill
+
+Warning: Ignoring unknown aesthetics: label</code></pre>
+<pre><code>Too few points to calculate an ellipse</code></pre>
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<pre class="r"><code>ps.mtl.sans.phasco &lt;- subset_samples(ps, Population != &quot;Mainland SA&quot; 
+                                     &amp; Population != &quot;Kangaroo Island&quot;
+                                     &amp; Koala != &quot;Phasco&quot;)
+
+ord.unw.uni &lt;- ordinate(ps.mtl.sans.phasco, &quot;PCoA&quot;, &quot;unifrac&quot;, weighted=F)
+
+#Weighted UniFrac
+ord.w.uni &lt;- ordinate(ps.mtl.sans.phasco, &quot;PCoA&quot;, &quot;unifrac&quot;, weighted=T)
+
+#Axes 1/2
+unwt.unifrac.1.2 &lt;- plot_ordination(ps.mtl.sans.phasco, ord.unw.uni, color=&quot;Koala&quot;, axes = c(1, 2))
+w.unifrac.1.2 &lt;- plot_ordination(ps.mtl.sans.phasco, ord.w.uni, color=&quot;Koala&quot;, axes = c(1, 2))
+#Axes 1/3
+unwt.unifrac.1.3 &lt;- plot_ordination(ps.mtl.sans.phasco, ord.unw.uni, color=&quot;Koala&quot;, axes = c(1, 3)) 
+w.unifrac.1.3 &lt;- plot_ordination(ps.mtl.sans.phasco, ord.w.uni, color=&quot;Koala&quot;, axes = c(1, 3))
+
+#Plot it
+FigX1a &lt;- unwt.unifrac.1.2 +
+  #stat_ellipse() +
+  scale_x_reverse() +
+  geom_point(size=9) +
+  geom_text(aes(label=Collection_number), color=&quot;black&quot;, hjust=2.5, vjust=-1) +
+  geom_path(size = 1) +
+  theme(axis.text.x = element_text(face=&quot;bold&quot;, size=14), 
+        axis.text.y = element_text(face=&quot;bold&quot;, size=14),
+        axis.title.x = element_text(size=14, face=&quot;bold&quot;),
+        axis.title.y = element_text(size=14, face=&quot;bold&quot;),
+        axis.line = element_line(colour = &quot;black&quot;),
+        #Background panel
+        panel.background = element_rect(fill = &quot;White&quot;),
+        panel.grid.major = element_line(colour = &quot;white&quot;), 
+        panel.grid.minor = element_line(colour = &quot;white&quot;))
+
+FigX1b &lt;- unwt.unifrac.1.3 +
+  #stat_ellipse() +
+  scale_x_reverse() +
+  geom_point(size=9) +
+  geom_text(aes(label=Collection_number), color=&quot;black&quot;, hjust=2.5, vjust=-1) +
+  geom_path(size = 1) +
+  theme(axis.text.x = element_text(face=&quot;bold&quot;, size=14), 
+        axis.text.y = element_text(face=&quot;bold&quot;, size=14),
+        axis.title.x = element_text(size=14, face=&quot;bold&quot;),
+        axis.title.y = element_text(size=14, face=&quot;bold&quot;),
+        axis.line = element_line(colour = &quot;black&quot;),
+        #Background panel
+        panel.background = element_rect(fill = &quot;White&quot;),
+        panel.grid.major = element_line(colour = &quot;white&quot;), 
+        panel.grid.minor = element_line(colour = &quot;white&quot;))
+
+#Create figure X:
+
+ggarrange(FigX1a, FigX1b, nrow = 2, common.legend = TRUE, legend=&quot;right&quot;, 
+          labels = c(&quot;A)&quot;, &quot;B)&quot;), font.label = list(size=20, face=&quot;bold&quot;, color=&quot;black&quot;))</code></pre>
+<p><img src="figure/R_analyses.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>#Taxonomic bar plots</p>
+<pre class="r"><code>#Collapse to family level
+ps.family &lt;- tax_glom(ps, taxrank = &quot;Family&quot;, NArm = FALSE)
+
+#Extract top 20 most abundant family names, bind to ps sampledata
+top20families = names(sort(taxa_sums(ps.family), TRUE)[1:20])
+taxtab20 = cbind(tax_table(ps.family), family_20 = NA)
+taxtab20[top20families, &quot;family_20&quot;] &lt;- as(tax_table(ps.family)
+                                           [top20families, &quot;Family&quot;], &quot;character&quot;)
+tax_table(ps.family) &lt;- tax_table(taxtab20)
+
+ps.family.ra &lt;- transform_sample_counts(ps.family, function(x) 100 * x/sum(x))
+
+#Melt into a dataframe
+pd.family &lt;- psmelt(ps.family.ra)
+
+#Replace NA with &#39;other&#39;, for plotting purposes
+pd.family &lt;- arrange(pd.family, Koala_Collection)
+pd.family$family_20[is.na(pd.family$family_20)] &lt;- c(&quot;Other&quot;)
+
+#Plot em
+pd.family.plot &lt;- ggplot(pd.family, aes(x = Koala_Collection, y = Abundance,
+                                        fill = fct_reorder(family_20, -Abundance))) +
+  geom_bar(stat = &quot;identity&quot;) +
+  facet_wrap(~Population, scales = &quot;free_x&quot;) +
+  labs(x = &quot;&quot;, y = &quot;Relative abundance&quot;) +
+#  scale_y_continuous(labels = scales::percent_format()) +
+  theme(axis.text.y = element_text(size=16, face = &#39;bold&#39;),
+        axis.title.y = element_text(size=16, face = &#39;bold&#39;),
+        axis.ticks.y = element_line(size = 1),
+        axis.text.x = element_text(size = 13, angle = 55, hjust = 1),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        legend.position = &quot;top&quot;,
+        strip.text = element_text(face = &quot;bold&quot;, size = 14),
+        panel.background = element_blank()
+        ) +
+  scale_fill_manual(values = 
+      c(&quot;Bacteroidaceae&quot; = &quot;#228B22&quot;, &quot;[Eubacterium]_coprostanoligenes_group&quot; = &quot;#3CB371&quot;,
+        &quot;Akkermansiaceae&quot; = &quot;#2E8B57&quot;, &quot;Tannerellaceae&quot; = &quot;#8FBC8F&quot;,
+        &quot;Christensenellaceae&quot; = &quot;#191970&quot;, &quot;Clostridiaceae&quot; = &quot;#db6d00&quot;,
+        &quot;Paludibacteraceae&quot; = &quot;#66CCEE&quot;, &quot;Muribaculaceae&quot; = &quot;#FF1493&quot;,
+        &quot;Erysipelatoclostridiaceae&quot; = &quot;#0000FF&quot;, &quot;Lachnospiraceae&quot; = &quot;#B8860B&quot;,
+        &quot;Oscillospiraceae&quot; = &quot;#FF6347&quot;, &quot;Acidaminococcaceae&quot; = &quot;#F0E68C&quot;,
+        &quot;Pasteurellaceae&quot; = &quot;#FF69B4&quot;, &quot;Desulfovibrionaceae&quot; = &quot;#FFC0CB&quot;,
+        &quot;Prevotellaceae&quot; = &quot;#FFFF00&quot;, &quot;Rikenellaceae&quot; = &quot;#00FF7F&quot;,
+        &quot;Ruminococcaceae&quot; = &quot;#b66dff&quot;, &quot;vadinHA49&quot; = &quot;#FF00FF&quot;,
+        &quot;Synergistaceae&quot; = &quot;#8B0000&quot;, &quot;Gastranaerophilales&quot; = &quot;#000000&quot;, &quot;Other&quot; = &quot;#808080&quot;)
+  )
+
+ggsave(filename = &quot;output/Family_Taxa_Plot.png&quot;, 
+       width = 20, height = 12, dpi = 300)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -603,20 +973,59 @@ locale:
 [5] LC_TIME=English_Australia.1252    
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] workflowr_1.6.2
+ [1] forcats_0.5.0       eulerr_6.1.0        ggVennDiagram_0.3.3
+ [4] VennDiagram_1.6.20  futile.logger_1.4.3 microbiome_1.10.0  
+ [7] knitr_1.29          tidyr_1.1.2         ggpubr_0.4.0       
+[10] scales_1.1.1        ggplot2_3.3.2       gplots_3.1.0       
+[13] cowplot_1.1.0       svglite_1.2.3.2     dplyr_1.0.2        
+[16] qiime2R_0.99.34     phyloseq_1.32.0     workflowr_1.6.2    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.5      rstudioapi_0.11 whisker_0.4     knitr_1.29     
- [5] magrittr_1.5    R6_2.4.1        rlang_0.4.9     stringr_1.4.0  
- [9] tools_4.0.2     xfun_0.17       git2r_0.27.1    htmltools_0.5.0
-[13] ellipsis_0.3.1  rprojroot_1.3-2 yaml_2.2.1      digest_0.6.25  
-[17] tibble_3.0.3    lifecycle_0.2.0 crayon_1.3.4    later_1.1.0.1  
-[21] vctrs_0.3.4     promises_1.1.1  fs_1.5.0        glue_1.4.2     
-[25] evaluate_0.14   rmarkdown_2.3   stringi_1.5.3   compiler_4.0.2 
-[29] pillar_1.4.6    backports_1.1.9 httpuv_1.5.4    pkgconfig_2.0.3</code></pre>
+  [1] readxl_1.3.1         backports_1.1.9      Hmisc_4.4-1         
+  [4] systemfonts_0.3.1    plyr_1.8.6           igraph_1.2.5        
+  [7] splines_4.0.2        digest_0.6.25        foreach_1.5.0       
+ [10] htmltools_0.5.0      magrittr_1.5         checkmate_2.0.0     
+ [13] cluster_2.1.0        openxlsx_4.2.2       Biostrings_2.56.0   
+ [16] jpeg_0.1-8.1         colorspace_1.4-1     haven_2.3.1         
+ [19] xfun_0.17            crayon_1.3.4         jsonlite_1.7.1      
+ [22] survival_3.1-12      iterators_1.0.12     ape_5.4-1           
+ [25] glue_1.4.2           gtable_0.3.0         zlibbioc_1.34.0     
+ [28] XVector_0.28.0       car_3.0-9            Rhdf5lib_1.10.1     
+ [31] BiocGenerics_0.34.0  abind_1.4-5          futile.options_1.0.1
+ [34] DBI_1.1.0            cpp11_0.2.1          rstatix_0.6.0       
+ [37] Rcpp_1.0.5           htmlTable_2.1.0      units_0.6-7         
+ [40] foreign_0.8-80       Formula_1.2-3        stats4_4.0.2        
+ [43] DT_0.15              truncnorm_1.0-8      htmlwidgets_1.5.3   
+ [46] RColorBrewer_1.1-2   ellipsis_0.3.1       farver_2.0.3        
+ [49] pkgconfig_2.0.3      NADA_1.6-1.1         nnet_7.3-14         
+ [52] tidyselect_1.1.0     labeling_0.3         rlang_0.4.9         
+ [55] reshape2_1.4.4       later_1.1.0.1        munsell_0.5.0       
+ [58] cellranger_1.1.0     tools_4.0.2          generics_0.0.2      
+ [61] ade4_1.7-15          broom_0.7.0          evaluate_0.14       
+ [64] biomformat_1.16.0    stringr_1.4.0        yaml_2.2.1          
+ [67] fs_1.5.0             zip_2.1.1            caTools_1.18.0      
+ [70] purrr_0.3.4          nlme_3.1-148         whisker_0.4         
+ [73] formatR_1.7          compiler_4.0.2       rstudioapi_0.11     
+ [76] curl_4.3             png_0.1-7            e1071_1.7-4         
+ [79] ggsignif_0.6.0       zCompositions_1.3.4  tibble_3.0.3        
+ [82] stringi_1.5.3        gdtools_0.2.2        lattice_0.20-41     
+ [85] Matrix_1.2-18        classInt_0.4-3       vegan_2.5-6         
+ [88] permute_0.9-5        multtest_2.44.0      vctrs_0.3.4         
+ [91] pillar_1.4.6         lifecycle_0.2.0      data.table_1.13.0   
+ [94] bitops_1.0-6         httpuv_1.5.4         R6_2.4.1            
+ [97] latticeExtra_0.6-29  promises_1.1.1       KernSmooth_2.23-17  
+[100] gridExtra_2.3        rio_0.5.16           IRanges_2.22.2      
+[103] codetools_0.2-16     lambda.r_1.2.4       MASS_7.3-51.6       
+[106] gtools_3.8.2         rhdf5_2.32.2         rprojroot_1.3-2     
+[109] withr_2.2.0          S4Vectors_0.26.1     mgcv_1.8-31         
+[112] parallel_4.0.2       hms_0.5.3            rpart_4.1-15        
+[115] class_7.3-17         rmarkdown_2.3        carData_3.0-4       
+[118] Rtsne_0.15           git2r_0.27.1         sf_0.9-6            
+[121] Biobase_2.48.0       base64enc_0.1-3     </code></pre>
 </div>
 </div>
 
