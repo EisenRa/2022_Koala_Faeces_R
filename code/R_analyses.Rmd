@@ -1,33 +1,24 @@
 ---
 title: "R_analyses"
 author: "EisenRa"
-date: "2021-06-10"
+date: "2022-04-18"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
 ## Load packages, import data
-
 ```{r}
 library(phyloseq)
 library(qiime2R)
-library(dplyr)
-library(svglite)
-library(cowplot)
-library(gplots)
 library(ggplot2)
 library(scales)
-library(ggpubr)
-library(tidyr)
-library(knitr)
 library(microbiome)
-library(VennDiagram)
-library(ggVennDiagram)
-library(forcats)
 library(tidyverse)
 library(ggmap)
 library(ggrepel)
+library(ggpubr)
+library(VennDiagram)
 library(osmdata)
 
 
@@ -42,7 +33,7 @@ ps <- qza_to_phyloseq(
 
 ```
 
-# Create map of samples
+# Create map of samples (Figure 1)
 ```{r}
 #Load sample metadata
 data <- read.csv("analysis/QIIME2/Koala_Metadata.tsv", sep = '\t')
@@ -69,7 +60,7 @@ ggmap(map) +
 ```
 
 
-# Diversity through time plots
+# Alpha diversity through time plots (Figure 2; SI Figures X & X)
 ```{r}
 #Import data using qiime2R
 metadata <- read.csv("analysis/QIIME2/Koala_Metadata.tsv", sep = '\t')
@@ -121,9 +112,10 @@ theme_RE <- theme(axis.text.x = element_text(size=20),
 cbp2_cleland <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
                   "#F0E442", "#0072B2", "#D55E00")
 
-cbp2_mtlagoon <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288")
+cbp2_mtlagoon <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#000000")
 
 
+#Create each pane of figure 2
 plot.evenness.cleland <- metadata.evenness.cleland %>%
   filter(!is.na(metadata.evenness.cleland$pielou_evenness)) %>%
   ggplot(aes(x=Collection_number, y=pielou_evenness, color=Koala)) +
@@ -181,16 +173,176 @@ plot.richness.mtlagoon <- metadata.richness.mtlagoon %>%
   scale_color_manual(values = cbp2_mtlagoon) +
   theme_RE 
 
-
+#Merge panes into figure 2
 ggarrange(plot.evenness.cleland, plot.evenness.mtlagoon,
           plot.richness.cleland, plot.richness.mtlagoon,
           nrow = 2, ncol = 2, common.legend = FALSE, labels = c("A)", "B)", "C)", "D)"), 
           font.label = list(size=18, face="bold", color="black"))
 
+ggsave(filename = "output/Figure2.png", 
+       width = 20, height = 12, dpi = 300)
+
+##########################################################################################
+
+# Figures SX and SX
+#Merge alpha diversity results
+evenness <- coalesce(metadata.evenness.mtlagoon, metadata.evenness.cleland)
+richness <- coalesce(metadata.richness.mtlagoon, metadata.richness.cleland)
+
+#Order samples
+richness$Koala <- factor(richness$Koala, levels = c('Blaze', 'Byron', 'Claudette', 'George', 
+                                                    'Leo', 'Lola', 'Theo',
+                                                    'Cin', 'Phasco', 'Reus', 'Tos', 'Uno'))
+evenness$Koala <- factor(evenness$Koala, levels = c('Blaze', 'Byron', 'Claudette', 'George', 
+                                                    'Leo', 'Lola', 'Theo',
+                                                    'Cin', 'Phasco', 'Reus', 'Tos', 'Uno'))
+
+
+#Colour theme all
+cbp2_all <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
+              "#88CCEE", "#CC6677", "#DDCC77", "#117733", "#000000")
+
+
+koala.richness <- ggplot(richness, aes(x=Koala, y=observed_features))
+koala.evenness <- ggplot(evenness, aes(x=Koala, y=pielou_evenness))
+
+#Set theme
+theme_RE2 <- theme(axis.text.x = element_text(face="bold", size=14, angle = 45, vjust = 0.7), 
+                   axis.text.y = element_text(face="bold", size=20),
+                   axis.title.x = element_text(size=20, face="bold"),
+                   axis.title.y = element_text(size=20, face="bold"),
+                   axis.line = element_line(colour = "black"),
+                   panel.background = element_rect(fill = "White"),
+                   strip.text = element_text(colour = "black", face="bold", size = 14),
+                   #Legend
+                   legend.position = "none")
+
+#Create panes
+gg.koala.richness = koala.richness + 
+  facet_wrap(~Location_sampled, scales = "free_x") +
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Koala)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Koala)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "ASV Richness")
+
+gg.koala.evenness = koala.evenness + 
+  facet_wrap(~Location_sampled, scales = "free_x") +
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Koala)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Koala)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "Pielou evenness")
+
+#Merge panes into SI figure X
+ggarrange(gg.koala.evenness, gg.koala.richness,
+          nrow = 2, ncol = 1, common.legend = FALSE, labels = c("A)", "B)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+ggsave(filename = "output/SI_koala_diversity.png", 
+       width = 20, height = 12, dpi = 300)
+
+##########################################################################################
+
+# Cleland vs. Mountain Lagoon
+ppn.richness <- ggplot(richness, aes(x=Location_sampled, y=observed_features))
+ppn.evenness <- ggplot(evenness, aes(x=Location_sampled, y=pielou_evenness))
+
+#Create panes
+gg.ppn.richness = ppn.richness + 
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Location_sampled)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Location_sampled)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "ASV Richness")
+
+gg.ppn.evenness = ppn.evenness + 
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Location_sampled)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Location_sampled)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "Pielou evenness")
+
+#Merge panes into SI figure X
+ggarrange(gg.ppn.evenness, gg.ppn.richness,
+          nrow = 1, ncol = 2, common.legend = FALSE, labels = c("A)", "B)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+ggsave(filename = "output/SI_ppn_diversity.png", 
+       width = 20, height = 12, dpi = 300)
+
+```
+
+# Alpha diversity stats
+```{r}
+library(lme4)
+library(lmerTest)
+library(stargazer)
+
+#Rarefy
+ps.rar <- rarefy_even_depth(ps, sample.size = 36622, rngseed = 1337)
+
+#Calculate alpha diversity metrics
+ps.rar.alpha.div <- alpha(ps.rar, index = "all")
+
+#Append metadata to alpha diversity values
+meta <- meta(ps.rar)
+meta <- meta %>%
+  mutate(name = rownames(meta))
+ps.rar.alpha.div$name <- rownames(ps.rar.alpha.div)
+alpha.df <- merge(ps.rar.alpha.div, meta, by = "name")
+
+##Linear model of diversity ~ koala
+koala.richness <- lm(rank(observed) ~ Koala, data = alpha.df)
+koala.evenness <- lm(rank(evenness_pielou) ~ Koala, data = alpha.df)
+
+#ANOVA
+anova(koala.richness)
+anova(koala.evenness)
+
+#Do the residuals conform to normality?
+hist(residuals(koala.richness))
+hist(residuals(koala.evenness))
+
+shapiro.test(residuals(koala.richness))
+shapiro.test(residuals(koala.evenness))
+
+
+##Linear model of diversity ~ location sampled (Cleland vs. Mountain Lagoon)
+#Using koala as a random effect to account for individual effects
+location.richness <- lmer(rank(observed) ~ Location_sampled + (1|Koala), data = alpha.df)
+location.evenness <- lmer(rank(evenness_pielou) ~ Location_sampled + (1|Koala), data = alpha.df)
+
+summary(location.richness)
+summary(location.evenness)
+
+#Tabluate
+stargazer(location.richness, type = "html",
+          digits = 3,
+          star.cutoffs = c(0.05, 0.01, 0.001),
+          digit.separator = "",
+          out = "richness_location.html")
+
+stargazer(location.evenness, type = "html",
+          digits = 3,
+          star.cutoffs = c(0.05, 0.01, 0.001),
+          digit.separator = "",
+          out = "evenness_location.html")
+
+#Get mean+SD for Cleland vs. Mountain Lagoon
+alpha.df %>%
+  group_by(Location_sampled) %>%
+  summarise(mean = mean(observed), sd = sd(observed))
+
 ```
 
 
-# PCoA figures
+
+# PCoA figures (Figures 3, and SI X)
 ```{r}
 #QIIME2 generated PCoA matrices
 pcoa_uwUniFrac_all <- read_qza(
@@ -212,7 +364,7 @@ metadata_pcoa <- read.csv("analysis/QIIME2/Koala_Metadata.tsv", sep = '\t')
 #Colour palette
 cbp2_beta <- c("orange", "black", "red", "blue")
 
-#Create a function to plot PCoAs using ggplot2
+#Create panes
 plot.PCoA <- function(pcoa, pcx, pcy, color) {
   
   pcoa$data$Vectors %>%
@@ -226,16 +378,16 @@ plot.PCoA <- function(pcoa, pcx, pcy, color) {
 #  stat_ellipse(type = "norm", aes(fill = Koala)) +
   geom_path() +
   geom_text(aes(label = Collection_number), color = "black", fontface = "bold") +
-    
+
   xlab(paste0("PC", pcx, ": " , round(100*pcoa$data$ProportionExplained[pcx]), "%")) +
   ylab(paste0("PC", pcy, ": " , round(100*pcoa$data$ProportionExplained[pcy]), "%")) +
   #Custom manual colours
   scale_colour_manual(values=cbp2_beta) +
   
-  theme(axis.text.x = element_text(face="bold", size=24), 
-        axis.text.y = element_text(face="bold", size=24),
-        axis.title.x = element_text(size=30, face="bold"),
-        axis.title.y = element_text(size=30, face="bold"),
+  theme(axis.text.x = element_text(face="bold", size=16), 
+        axis.text.y = element_text(face="bold", size=16),
+        axis.title.x = element_text(size=20, face="bold"),
+        axis.title.y = element_text(size=20, face="bold"),
         axis.line = element_line(colour = "black"),
         #Background panel
         panel.background = element_rect(fill = "White"),
@@ -246,47 +398,65 @@ plot.PCoA <- function(pcoa, pcx, pcy, color) {
         legend.text = element_text(size=24),
         legend.key = element_rect(fill = "white", color = NA),
         legend.key.size = unit(3.5, "line"))
-
-#Save image
-ggsave(filename = paste0("output/", deparse(substitute(pcoa)), "_", color, "_PC", pcx, "-", pcy, ".png"), 
-       width = 20, height = 11, dpi = 300)
-
 }
 
-##Run through plots
-#Mtlagoon + Cleland
-plot.PCoA(pcoa_uwUniFrac_all, 1, 2, "Population")
-plot.PCoA(pcoa_uwUniFrac_all, 1, 3, "Population")
-
-plot.PCoA(pcoa_wUniFrac_all, 1, 2, "Population")
-plot.PCoA(pcoa_wUniFrac_all, 1, 3, "Population")
-
-
+#Run through plots
 #Cleland only
 
 cbp2_beta <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
                "#F0E442", "#0072B2", "#D55E00")
 
-plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 2, "Koala")
-plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 3, "Koala")
+cl.uw.1.2 <- plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 2, "Koala") +
+  theme(legend.position = "none")
+cl.uw.1.3 <- plot.PCoA(pcoa_uwUniFrac_Cleland, 1, 3, "Koala")
 
-plot.PCoA(pcoa_wUniFrac_Cleland, 1, 2, "Koala")
-plot.PCoA(pcoa_wUniFrac_Cleland, 1, 3, "Koala")
-
+cl.w.1.2 <- plot.PCoA(pcoa_wUniFrac_Cleland, 1, 2, "Koala")
+cl.w.1.3 <- plot.PCoA(pcoa_wUniFrac_Cleland, 1, 3, "Koala")
 
 #MtLagoon only
-cbp2_beta <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288")
+cbp2_beta <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#000000")
 
-plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 2, "Koala")
-plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 3, "Koala")
+ml.uw.1.2 <- plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 2, "Koala") +
+  theme(legend.position = "none")
+ml.uw.1.3 <- plot.PCoA(pcoa_uwUniFrac_MtLagoon, 1, 3, "Koala")
 
-plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 2, "Koala")
-plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 3, "Koala")
+ml.w.1.2 <- plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 2, "Koala")
+ml.w.1.3 <- plot.PCoA(pcoa_wUniFrac_MtLagoon, 1, 3, "Koala")
+
+#Join into SI figure X
+ggarrange(cl.uw.1.2, cl.w.1.2, ml.uw.1.2, ml.w.1.2,
+          nrow = 2, ncol = 2, common.legend = FALSE, labels = c("A)", "B)", "C)", "D)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+ggsave(filename = "output/Figure_3.png", 
+       width = 20, height = 12, dpi = 300)
 
 ```
 
-# Taxonomic bar plots
+# Beta-diversity stats
 ```{r}
+library(vegan)
+
+#Rarefy table
+ps.rar <- rarefy_even_depth(ps, sample.size = 36622, rngseed = 1337)
+
+ps.rar.cl <- subset_samples(ps.rar, Location_sampled == "Cleland")
+ps.rar.ml <- subset_samples(ps.rar, Location_sampled == "Mountain_Lagoon")
+  
+metadata.cl <- as(sample_data(ps.rar.cl), "data.frame")
+metadata.ml <- as(sample_data(ps.rar.ml), "data.frame")
+
+adonis(distance(ps.rar.cl, method="unifrac") ~ Koala, data = metadata.cl)
+adonis(distance(ps.rar.ml, method="unifrac") ~ Koala, data = metadata.ml)
+adonis(distance(ps.rar.cl, method="wunifrac") ~ Koala, data = metadata.cl)
+adonis(distance(ps.rar.ml, method="wunifrac") ~ Koala, data = metadata.ml)
+
+```
+
+# Taxonomic bar plots (Figure 4)
+```{r}
+library(ggh4x)
+library(ggtext)
 
 #Collapse to family level
 ps.family <- tax_glom(ps, taxrank = "Family", NArm = FALSE)
@@ -307,21 +477,38 @@ pd.family <- psmelt(ps.family.ra)
 pd.family <- arrange(pd.family, Koala_Collection)
 pd.family$family_20[is.na(pd.family$family_20)] <- c("Other")
 
+#Relative abundance of top 20 families?
+mean(sample_sums(prune_taxa(top20families, ps.family.ra)))
+
 #Plot em
-pd.family.plot <- ggplot(pd.family, aes(x = Koala_Collection, y = Abundance,
+#pd.family.plot <- 
+  
+  ggplot(pd.family, aes(x = Koala_Collection, y = Abundance,
                                         fill = fct_reorder(family_20, -Abundance))) +
-  geom_bar(stat = "identity") +
-  facet_grid(~Location_sampled, scales = "free", space ='free') +
+  geom_bar(width = 0.9, stat = "identity") +
+  facet_nested(~Location_sampled + Koala, scales = "free", space = "free", ) +
   labs(x = "", y = "Relative abundance") +
-#  scale_y_continuous(labels = scales::percent_format()) +
-  theme(axis.text.y = element_text(size=16, face = 'bold'),
+  theme(
+        axis.text.y = element_text(size=16, face = 'bold'),
         axis.title.y = element_text(size=16, face = 'bold'),
         axis.ticks.y = element_line(size = 1),
-        axis.text.x = element_text(size = 13, angle = 55, hjust = 1),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
         legend.title = element_blank(),
-        legend.text = element_text(size = 14),
-        legend.position = "top",
-        strip.text = element_text(face = "bold", size = 14),
+        legend.text = element_text(size = 18),
+        legend.position = "bottom",
+        strip.background = element_blank(),
+        strip.text = element_textbox_simple(
+          padding = margin(5, 0, 5, 0),
+          margin = margin(5, 5, 5, 5),
+          size = 14,
+          face = "bold",
+          halign = 0.5,
+          fill = "white",
+          box.color = "grey",
+          linewidth = 1.5,
+          linetype = "solid",),
         panel.background = element_blank()
         ) +
   scale_fill_manual(values = 
@@ -340,9 +527,10 @@ pd.family.plot <- ggplot(pd.family, aes(x = Koala_Collection, y = Abundance,
 ggsave(filename = "output/Family_Taxa_Plot.png", 
        width = 20, height = 12, dpi = 300)
 
+
 ```
 
-# Mean relative abundances of select microbial families between CL/ML
+# Mean relative abundances of select microbial families between CL/ML (main text)
 ```{r}
 #Merge samples by geographic location
 ps.family.merged <- merge_samples(ps.family, "Location_sampled")
@@ -359,15 +547,41 @@ DT::datatable(ps.family.merged.relab.otu.and.tax)
 
 ```
 
+# Venn diagram (SI figure X)
+```{r}
+#Subset samples by population and save feature tables
+ps.CL <- subset_samples(ps.rar, Location_sampled == "Cleland")
+ps.ML <- subset_samples(ps.rar, Location_sampled == "Mountain_Lagoon")
 
-# ASV-level analyses
+ps.CL.table <- otu_table(ps.CL)
+ps.ML.table <- otu_table(ps.ML)
+
+#For each ASV (row), if abundance > 0, print ASV (rowname) to a vector 
+venn.CL <- rownames(ps.CL.table[ apply(ps.CL.table, MARGIN = 1, function(x) any(x > 0))])
+
+venn.ML <- rownames(ps.ML.table[ apply(ps.ML.table, MARGIN = 1, function(x) any(x > 0))])
+
+ppn.comparison <- list("Cleland" = venn.CL, "Mountain Lagoon" = venn.ML)
+
+venn.diagram(ppn.comparison, print.mode = c("raw","percent"), fill = c("red", "blue"), inverted = TRUE, 
+             imagetype = "tiff", filename = "output/Venn.tiff", cat.pos = c(0,0))
+
+#What are the dominant ASVs that are shared between ppns?
+shared.asvs <- inner_join(as.data.frame(venn.CL), as.data.frame(venn.ML), by = c("venn.CL" = "venn.ML"))
+
+shared.asvs.vector <- as.character(shared.asvs$venn.CL)
+
+#Mean relative abundance of shared ASVs
+percent(mean(sample_sums(prune_taxa(shared.asvs.vector, ps.rar)))/
+  mean(sample_sums(ps.rar)))
+
+```
+
+# ASV-level analyses (Table 2)
 ```{r}
 library(gridExtra)
 
 options(digits=3)
-
-##Rarefy ASV table
-ps.rar <- rarefy_even_depth(ps, rngseed=666, sample.size = 36622)
 
 ##How many ASVs are always present in a given koala through time?
 #Create a list of each subset that I want (per koala)
@@ -387,20 +601,28 @@ koala_list <- c(
 )
 
 #Create functions to use in loop
-gen_x <- function(numasv){
-  print(length(taxa_names(filter_taxa(numasv, function(x) sum(x) > 0 , TRUE))))
+gen_x <- function(ps){
+  print(length(taxa_names(filter_taxa(ps, function(x) sum(x) > 0 , TRUE))))
 }
-gen_y <- function(numcore){
-  print(length(taxa_names(core(numcore, detection =1, prevalence =0.999))))
+gen_y <- function(ps){
+  print(length(taxa_names(core(ps, detection =1, prevalence =0.999))))
 }
-gen_z <- function(relabcore){
-  print(mean(sample_sums(core(relabcore, detection =1, prevalence =0.999))) / mean(sample_sums(relabcore)))
+gen_z <- function(ps){
+  print(mean(sample_sums(core(ps, detection =1, prevalence =0.999))) / mean(sample_sums(ps)))
 }
+gen_zz <- function(ps){
+  print(length(taxa_names(core(ps, detection = 1, prevalence = 0))) - length(taxa_names(core(ps, detection = 1, prevalence = 1/length(sample_sums(ps))))))
+}
+
+
+
+
 
 #Create dataframe of length koalalist
 ASVresults <- data.frame(totalASVs_per_koala=rep(0,length(koala_list)),
                       total_core_ASVs=rep(0,length(koala_list)),
-                      mean_rel_abun_core_ASVs=rep(0,length(koala_list)))
+                      mean_rel_abun_core_ASVs=rep(0,length(koala_list)),
+                      num_singleton_ASVs_per_koala=rep(0, length(koala_list)))
 row.names(ASVresults) <- sort(unique(ps.rar@sam_data$Koala))
 
 #Loop over each subsetted phyloseq object, outputting results into the dataframe!
@@ -408,111 +630,45 @@ for (ps in 1:length(koala_list)){
   x <- gen_x(koala_list[[ps]])
   y <- gen_y(koala_list[[ps]])
   z <- gen_z(koala_list[[ps]])
+  zz <- gen_zz(koala_list[[ps]])
   ASVresults[ps, 1] <- x
   ASVresults[ps, 2] <- y
   ASVresults[ps, 3] <- z
+  ASVresults[ps, 4] <- zz
 }
 
 write.csv(ASVresults, file = "output/ASVresults.csv")
 
-#Print summary stats of ASV results:
-select(ASVresults, totalASVs_per_koala) %>%
-  summarize(., mean=mean(totalASVs_per_koala), SD=sd(totalASVs_per_koala))
-select(ASVresults, total_core_ASVs) %>%
-  summarize(., mean=mean(total_core_ASVs), SD=sd(total_core_ASVs))
-select(ASVresults, mean_rel_abun_core_ASVs) %>%
-  summarize(., mean=mean(mean_rel_abun_core_ASVs), SD=sd(mean_rel_abun_core_ASVs))
-
-##How many 100% core ASVs are shared between all koala inviduals?
-core(ps.rar, detection=1, prevalence=0.999) %>%
-  otu_table()
-#None, it seems.
-
-##What about 100% core ASVs within CL and ML?
-#Add ASV column to tax_table for easy subsetting:
-ps.rar.ASV <- ps.rar  
-tax_table(ps.rar.ASV) <- cbind(tax_table(ps.rar.ASV), 
-    rownames(tax_table(ps.rar.ASV)))
-colnames(tax_table(ps.rar.ASV)) <- 
-  c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species", "ASV")
-
-#Cleland
-subset_samples(ps.rar.ASV, Location_sampled=="Cleland") %>%
-  core(., detection=1, prevalence=0.999) %>%
-  otu_table()
-
-#Get taxonomic information for the most abundant of these CL 100% core ASVs:
-subset_taxa(ps.rar.ASV, ASV=="593a5c45dd38f6d9ec369b9b2679997f") %>%
-  tax_table()
-
-#What is the relative abundance of this 100% core CL ASV?
-ASV.sum <- subset_samples(ps.rar.ASV, Location_sampled=="Cleland") %>%
-  subset_taxa(., ASV=="593a5c45dd38f6d9ec369b9b2679997f") %>%
-  sample_sums()
-TOT.sum <- subset_samples(ps.rar.ASV, Location_sampled=="Cleland") %>%
-  sample_sums()
-
-mean(ASV.sum/TOT.sum)
-sd(ASV.sum/TOT.sum)
-
-#Mountain Lagoon
-subset_samples(ps.rar.ASV, Location_sampled=="Mountain_Lagoon") %>%
-  core(., detection=1, prevalence=0.999) %>%
-  otu_table()
-
-subset_taxa(ps.rar.ASV, ASV=="ce3b37d15aee37e4213c2d13ad8b1b1a") %>%
-  tax_table()
-subset_taxa(ps.rar.ASV, ASV=="f3521f355b29e7f7c878d616495def33") %>%
-  tax_table()
-
-ML.ASV.sum.1 <- subset_samples(ps.rar.ASV, Location_sampled=="Mountain_Lagoon") %>%
-  subset_taxa(., ASV=="ce3b37d15aee37e4213c2d13ad8b1b1a") %>%
-  sample_sums()
-ML.ASV.sum.2 <- subset_samples(ps.rar.ASV, Location_sampled=="Mountain_Lagoon") %>%
-  subset_taxa(., ASV=="f3521f355b29e7f7c878d616495def33") %>%
-  sample_sums()
-ML.TOT.sum <- subset_samples(ps.rar.ASV, Location_sampled=="Mountain_Lagoon") %>%
-  sample_sums()
-
-mean(ML.ASV.sum.1/ML.TOT.sum)
-sd(ML.ASV.sum.1/ML.TOT.sum)
-mean(ML.ASV.sum.2/ML.TOT.sum)
-sd(ML.ASV.sum.2/ML.TOT.sum)
 
 ```
 
-##How many ASVs (non-core) are shared between CL and ML koalas?
+
+# Lonepinella prevalance/abundance
 ```{r}
-#Subset samples by population and save feature tables
-ps.CL <- subset_samples(ps.rar.ASV, Location_sampled == "Cleland")
-ps.ML <- subset_samples(ps.rar.ASV, Location_sampled == "Mountain_Lagoon")
+#Get ASV IDs
+lp_ids <- tax_table(ps.rar) %>%
+                as.data.frame() %>%
+                filter(Genus == "Lonepinella") %>%
+                row.names()
 
-ps.CL.table <- otu_table(ps.CL)
-ps.ML.table <- otu_table(ps.ML)
+#Calculate prevalence, min, max, and mean relative abundance
+ps.lp.gen <- prune_taxa(lp_ids, ps.rar) %>%
+  tax_glom(taxrank = "Genus", NArm = FALSE)
+  
+ps.rar.gen <- tax_glom(ps.rar, taxrank = "Genus", NArm = FALSE)
 
-#For each ASV (row), if abundance > 0, print ASV (rowname) to a vector 
-venn.CL <- rownames(ps.CL.table[ apply(ps.CL.table, MARGIN = 1, function(x) any(x > 0))])
+mean(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
 
-venn.ML <- rownames(ps.ML.table[ apply(ps.ML.table, MARGIN = 1, function(x) any(x > 0))])
+min(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
 
-ppn.comparison <- list("Cleland" = venn.CL, "Mountain Lagoon" = venn.ML)
+max(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
 
-venn.diagram(ppn.comparison, print.mode = c("raw","percent"), fill = c("red", "blue"), inverted = TRUE, 
-             imagetype = "png", filename = "output/Venn.png", cat.pos = c(0,0))
-
-subset_taxa(ps.CL, ASV==venn.CL)
-
-shared_ASVS <- get_region_items(ppn.comparison) %>%
-  .$AB
-
-percent(mean(sample_sums(prune_taxa(shared_ASVS, ps.CL))) /
-        mean(sample_sums(ps.CL)))
-
-percent(mean(sample_sums(prune_taxa(shared_ASVS, ps.ML))) /
-        mean(sample_sums(ps.ML)))
+prevalence(ps.lp.gen)
 
 ```
-
 
 
 
