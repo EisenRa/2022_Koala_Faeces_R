@@ -1,3 +1,665 @@
+<<<<<<< HEAD
+---
+title: "Supplemental analyses for reviewer #1"
+author: "Raphael Eisenhofer"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output: 
+  github_document:
+      fig_width: 8
+      fig_height: 6
+      toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+## Load packages, import data
+```{r message = FALSE}
+library(phyloseq)
+library(qiime2R)
+library(ggplot2)
+library(scales)
+library(microbiome)
+library(tidyverse)
+library(ggmap)
+library(ggrepel)
+library(ggpubr)
+library(VennDiagram)
+library(osmdata)
+
+
+#Import data into phyloseq object
+ps <- qza_to_phyloseq(
+  features = "analysis/QIIME2/Koala-table.qza",
+  tree = "analysis/QIIME2/Koala-sepp-tree.qza",
+  taxonomy = "analysis/QIIME2/Koala-SILVA-138.qza",
+  metadata = "analysis/QIIME2/Koala_Metadata.tsv"
+)
+
+
+```
+
+# Filter out ASVs lower than 0.25% relative abundance (for reviewer #1)
+```{r}
+#Rarefy data
+ps.rar <- rarefy_even_depth(ps, sample.size = 36622, rngseed = 1337)
+
+#Apply 0.25% relative abundance filter (entire OTU table)
+count_cutoff <- 36622 * 0.0025
+ps.rar.tablefilter <- filter_taxa(ps.rar, function(x) sum(x > count_cutoff) > (0.0125*length(x)), TRUE)
+
+### 732 ASVs were pruned with this threshold, and these ASVs account for < 2% of the total reads in the dataset
+
+```
+
+
+# Alpha diversity through time plots (Figure 2; SI Figures X & X)
+```{r}
+#Calculate alpha diversities
+ps.rar.tablefilter.div <- alpha(ps.rar.tablefilter, index = "all")
+
+#Append metadata to alpha diversity values
+ps.rar.tablefilter.meta <- meta(ps.rar.tablefilter)
+ps.rar.tablefilter.meta$name <- rownames(ps.rar.tablefilter.meta)
+ps.rar.tablefilter.div$name <- rownames(ps.rar.tablefilter.div)
+ps.rar.tablefilter.div.df <- merge(ps.rar.tablefilter.div, ps.rar.tablefilter.meta, by = "name")
+
+
+#Set ggplot theme
+theme_RE <- theme(axis.text.x = element_text(size=20), 
+                  axis.text.y = element_text(size=20),
+                  axis.title.x = element_text(size=24, face="bold"),
+                  axis.title.y = element_text(size=24, face="bold"),
+                  axis.line = element_line(colour = "black"),
+                  #Background panel
+                  panel.background = element_rect(fill = "White"),
+                  panel.grid.major = element_line(colour = "white"), 
+                  panel.grid.minor = element_line(colour = "white"),
+                  #Legend
+                  legend.title = element_blank(),
+                  legend.text = element_text(size=16),
+                  legend.key = element_rect(fill = "white", color = NA),
+                  legend.position = c(0.5, 0.18),
+                  legend.direction = "horizontal",
+                  legend.key.size = unit(3.5, "line"))
+
+#Set colours
+cbp2_cleland <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+                  "#F0E442", "#0072B2", "#D55E00")
+
+cbp2_mtlagoon <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#998ec3")
+
+
+#Create each pane of figure 2
+plot.evenness.cleland <- ps.rar.tablefilter.div.df %>%
+  filter(Location_sampled == "Cleland") %>%
+  ggplot(aes(x=Collection_number, y=evenness_pielou, color=Koala)) +
+  geom_line(size = 3) +
+  geom_point(size = 5) +
+  scale_x_continuous(breaks = seq(1, 8, 1), labels = c(
+    "1" = "4", "2" = "8", "3" = "12", "4" = "16", 
+    "5" = "20", "6" = "24", "7" = "28", "8" = "32"
+  )) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  xlab(" ") +
+  ylab("pielou evenness") +
+  scale_color_manual(values = cbp2_cleland) +
+  theme_RE
+
+
+plot.evenness.mtlagoon <- ps.rar.tablefilter.div.df %>%
+  filter(Location_sampled != "Cleland") %>%
+  ggplot(aes(x=Collection_number, y=evenness_pielou, color=Koala)) +
+  geom_line(size = 3) +
+  geom_point(size = 5) +
+  scale_x_continuous(breaks = seq(1, 8, 1)) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  xlab(" ") +
+  ylab(" ") +
+  scale_color_manual(values = cbp2_mtlagoon) +
+  theme_RE
+
+
+plot.richness.cleland <- ps.rar.tablefilter.div.df %>%
+  filter(Location_sampled == "Cleland") %>%
+  ggplot(aes(x=Collection_number, y=observed, color=Koala)) +
+  geom_line(size = 3) +
+  geom_point(size = 5) +
+  scale_x_continuous(breaks = seq(1, 8, 1), labels = c(
+    "1" = "4", "2" = "8", "3" = "12", "4" = "16", 
+    "5" = "20", "6" = "24", "7" = "28", "8" = "32"
+  )) +
+  scale_y_continuous(limits = c(1, 100), breaks = seq(0, 100, 25)) +
+  xlab("Day") +
+  ylab("ASV richness") +
+  scale_color_manual(values = cbp2_cleland) +
+  theme_RE +
+  theme(legend.position='none')
+
+
+plot.richness.mtlagoon <- ps.rar.tablefilter.div.df %>%
+  filter(Location_sampled != "Cleland") %>%
+  ggplot(aes(x=Collection_number, y=observed, color=Koala)) +
+  geom_line(size = 3) +
+  geom_point(size = 5) +
+  scale_x_continuous(breaks = seq(1, 8, 1)) +
+  scale_y_continuous(limits = c(1, 100), breaks = seq(0, 100, 25)) +
+  xlab("Month") +
+  ylab(" ") +
+  scale_color_manual(values = cbp2_mtlagoon) +
+  theme_RE +
+  theme(legend.position='none') 
+
+#Merge panes into figure 2
+ggarrange(plot.evenness.cleland, plot.evenness.mtlagoon,
+          plot.richness.cleland, plot.richness.mtlagoon,
+          nrow = 2, ncol = 2, common.legend = FALSE, labels = c("A)", "B)", "C)", "D)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+# ggsave(filename = "output/Figure2.pdf", 
+#        width = 16, height = 14, dpi = 300)
+
+##########################################################################################
+
+# Figures SX and SX
+
+#Order samples
+ps.rar.tablefilter.div.df$Koala <- factor(ps.rar.tablefilter.div.df$Koala, 
+                                          levels = c('Blaze', 'Byron', 'Claudette', 'George', 
+                                                    'Leo', 'Lola', 'Theo',
+                                                    'Cin', 'Phasco', 'Reus', 'Tos', 'Uno'))
+ps.rar.tablefilter.div.df$Koala <- factor(ps.rar.tablefilter.div.df$Koala, 
+                                          levels = c('Blaze', 'Byron', 'Claudette', 'George', 
+                                                    'Leo', 'Lola', 'Theo',
+                                                    'Cin', 'Phasco', 'Reus', 'Tos', 'Uno'))
+
+
+#Colour theme all
+cbp2_all <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
+              "#88CCEE", "#CC6677", "#DDCC77", "#117733", "#998ec3")
+
+
+koala.richness <- ggplot(ps.rar.tablefilter.div.df, aes(x=Koala, y=observed))
+koala.evenness <- ggplot(ps.rar.tablefilter.div.df, aes(x=Koala, y=evenness_pielou))
+
+#Set theme
+theme_RE2 <- theme(axis.text.x = element_text(face="bold", size=14, angle = 45, vjust = 0.7), 
+                   axis.text.y = element_text(face="bold", size=20),
+                   axis.title.x = element_text(size=20, face="bold"),
+                   axis.title.y = element_text(size=20, face="bold"),
+                   axis.line = element_line(colour = "black"),
+                   panel.background = element_rect(fill = "White"),
+                   strip.text = element_text(colour = "black", face="bold", size = 14),
+                   #Legend
+                   legend.position = "none")
+
+#Create panes
+gg.koala.richness = koala.richness + 
+  facet_wrap(~Location_sampled, scales = "free_x") +
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Koala)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Koala)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "ASV Richness")
+
+gg.koala.evenness = koala.evenness + 
+  facet_wrap(~Location_sampled, scales = "free_x") +
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Koala)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Koala)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "Pielou evenness")
+
+#Merge panes into SI figure X
+ggarrange(gg.koala.evenness, gg.koala.richness,
+          nrow = 2, ncol = 1, common.legend = FALSE, labels = c("A)", "B)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+# ggsave(filename = "output/SI_figure1.pdf", 
+#        width = 16, height = 10, dpi = 300)
+
+##########################################################################################
+
+# Cleland vs. Mountain Lagoon
+ppn.richness <- ggplot(ps.rar.tablefilter.div.df, aes(x=Location_sampled, y=observed))
+ppn.evenness <- ggplot(ps.rar.tablefilter.div.df, aes(x=Location_sampled, y=evenness_pielou))
+
+#Create panes
+gg.ppn.richness = ppn.richness + 
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Location_sampled)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Location_sampled)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "ASV Richness")
+
+gg.ppn.evenness = ppn.evenness + 
+  geom_boxplot(size=1, outlier.shape=8, outlier.size=3, outlier.stroke=1, aes(colour=Location_sampled)) +
+  geom_jitter(position=position_dodge2(0.3), size=3.5, aes(colour=Location_sampled)) +
+  scale_colour_manual(values=cbp2_all) +
+  theme_RE2 +
+  labs(x = "") +
+  labs(y = "Pielou evenness")
+
+#Merge panes into SI figure X
+ggarrange(gg.ppn.evenness, gg.ppn.richness,
+          nrow = 1, ncol = 2, common.legend = FALSE, labels = c("A)", "B)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+# ggsave(filename = "output/SI_figure2.pdf", 
+#        width = 16, height = 10, dpi = 300)
+
+```
+
+# Alpha diversity stats
+```{r}
+library(lme4)
+library(lmerTest)
+library(stargazer)
+
+##Linear model of diversity ~ koala
+koala.richness <- lm(rank(observed) ~ Koala, data = ps.rar.tablefilter.div.df)
+koala.evenness <- lm(rank(evenness_pielou) ~ Koala, data = ps.rar.tablefilter.div.df)
+
+#ANOVA
+anova(koala.richness)
+anova(koala.evenness)
+
+#Do the residuals conform to normality?
+hist(residuals(koala.richness))
+hist(residuals(koala.evenness))
+
+shapiro.test(residuals(koala.richness))
+shapiro.test(residuals(koala.evenness))
+
+
+##Linear model of diversity ~ location sampled (Cleland vs. Mountain Lagoon)
+#Using koala as a random effect to account for individual effects
+location.richness <- lmer(rank(observed) ~ Location_sampled + (1|Koala), data = ps.rar.tablefilter.div.df)
+location.evenness <- lmer(rank(evenness_pielou) ~ Location_sampled + (1|Koala), data = ps.rar.tablefilter.div.df)
+
+summary(location.richness)
+summary(location.evenness)
+
+#Tabluate
+# stargazer(location.richness, type = "html",
+#           digits = 3,
+#           star.cutoffs = c(0.05, 0.01, 0.001),
+#           digit.separator = "",
+#           out = "richness_location.html")
+
+# stargazer(location.evenness, type = "html",
+#           digits = 3,
+#           star.cutoffs = c(0.05, 0.01, 0.001),
+#           digit.separator = "",
+#           out = "evenness_location.html")
+
+#Get mean+SD for Cleland vs. Mountain Lagoon
+ps.rar.tablefilter.div.df %>%
+  group_by(Location_sampled) %>%
+  summarise(mean = mean(observed), sd = sd(observed))
+
+```
+
+
+
+# PCoA figures (Figures 3, and SI X)
+```{r}
+##Split table into cleland and mt lagoon
+ps.rar.tablefilter.cl <- subset_samples(ps.rar.tablefilter, Location_sampled == "Cleland")
+ps.rar.tablefilter.ml <- subset_samples(ps.rar.tablefilter, Location_sampled == "Mountain_Lagoon")
+
+##calculate beta diversities
+#Unweighted UniFrac
+ord.unw.uni.cl <- ordinate(ps.rar.tablefilter.cl, "PCoA", "unifrac", weighted=F)
+ord.unw.uni.ml <- ordinate(ps.rar.tablefilter.ml, "PCoA", "unifrac", weighted=F)
+
+#Weighted UniFrac
+ord.w.uni.cl <- ordinate(ps.rar.tablefilter.cl, "PCoA", "unifrac", weighted=T)
+ord.w.uni.ml <- ordinate(ps.rar.tablefilter.ml, "PCoA", "unifrac", weighted=T)
+
+#Axes 1/2
+unwt.unifrac.1.2.cl <- plot_ordination(ps.rar.tablefilter.cl, 
+                                    ord.unw.uni.cl, color="Koala", 
+                                    axes = c(1, 2))
+unwt.unifrac.1.2.ml <- plot_ordination(ps.rar.tablefilter.ml, 
+                                    ord.unw.uni.ml, color="Koala", 
+                                    axes = c(1, 2))
+
+w.unifrac.1.2.cl <- plot_ordination(ps.rar.tablefilter.cl, 
+                                 ord.w.uni.cl, color="Koala", 
+                                 axes = c(1, 2))
+w.unifrac.1.2.ml <- plot_ordination(ps.rar.tablefilter.ml, 
+                                 ord.w.uni.ml, color="Koala", 
+                                 axes = c(1, 2))
+#Axes 1/3
+unwt.unifrac.1.3.cl <- plot_ordination(ps.rar.tablefilter.cl, 
+                                    ord.unw.uni.cl, color="Koala", 
+                                    axes = c(1, 3)) 
+unwt.unifrac.1.3.ml <- plot_ordination(ps.rar.tablefilter.ml, 
+                                    ord.unw.uni.ml, color="Koala", 
+                                    axes = c(1, 3)) 
+
+w.unifrac.1.3.cl <- plot_ordination(ps.rar.tablefilter.cl, 
+                                 ord.w.uni.cl, color="Koala", 
+                                 axes = c(1, 3))
+w.unifrac.1.3.ml <- plot_ordination(ps.rar.tablefilter.ml, 
+                                 ord.w.uni.ml, color="Koala", 
+                                 axes = c(1, 3))
+
+
+#Create theme
+theme_pcoa <- theme(axis.text.x = element_text(face="bold", size=16), 
+                    axis.text.y = element_text(face="bold", size=16),
+                    axis.title.x = element_text(size=20, face="bold"),
+                    axis.title.y = element_text(size=20, face="bold"),
+                    axis.line = element_line(colour = "black"),
+                    #Background panel
+                    panel.background = element_rect(fill = "White"),
+                    panel.grid.major = element_line(colour = "white"), 
+                    panel.grid.minor = element_line(colour = "white"),
+                    #Legend
+                    legend.title = element_blank(),
+                    legend.text = element_text(size=16),
+                    legend.key = element_rect(fill = "white", color = NA),
+                    legend.key.size = unit(2.5, "line"))
+          
+
+#Run through plots
+#Cleland only
+
+cbp2_beta <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00")
+cl.uw.1.2 <- unwt.unifrac.1.2.cl +
+  scale_x_reverse() +
+  geom_point(size=7.5) +
+  geom_path() +
+  geom_text(aes(label = Collection_number), color = "black", fontface = "bold") +
+  scale_colour_manual(values=cbp2_beta) +
+  theme_pcoa +
+  theme(legend.position = "none")
+
+cl.w.1.2 <- w.unifrac.1.2.cl +
+  scale_x_reverse() +
+  geom_point(size=7.5) +
+  geom_path() +
+  geom_text(aes(label = Collection_number), color = "black", fontface = "bold") +
+  scale_colour_manual(values=cbp2_beta) +
+  theme_pcoa +
+  theme(legend.position = "right")
+
+
+#MtLagoon only
+cbp2_beta <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#998ec3")
+
+ml.uw.1.2 <- unwt.unifrac.1.2.ml +
+  scale_x_reverse() +
+  geom_point(size=7.5) +
+  geom_path() +
+  geom_text(aes(label = Collection_number), color = "black", fontface = "bold") +
+  scale_colour_manual(values=cbp2_beta) +
+  theme_pcoa +
+  theme(legend.position = "none")
+
+ml.w.1.2 <- w.unifrac.1.2.ml +
+  scale_x_reverse() +
+  geom_point(size=7.5) +
+  geom_path() +
+  geom_text(aes(label = Collection_number), color = "black", fontface = "bold") +
+  scale_colour_manual(values=cbp2_beta) +
+  theme_pcoa +
+  theme(legend.position = "right")
+
+#Join into SI figure X
+ggarrange(cl.uw.1.2, cl.w.1.2, ml.uw.1.2, ml.w.1.2,
+          nrow = 2, ncol = 2, common.legend = FALSE, labels = c("A)", "B)", "C)", "D)"), 
+          font.label = list(size=18, face="bold", color="black"))
+
+# ggsave(filename = "output/Figure_3.pdf", 
+#        width = 16, height = 10, dpi = 300)
+
+```
+
+# Beta-diversity stats
+```{r}
+library(vegan)
+
+metadata.cl <- as(sample_data(ps.rar.tablefilter.cl), "data.frame")
+metadata.ml <- as(sample_data(ps.rar.tablefilter.ml), "data.frame")
+
+adonis(distance(ps.rar.tablefilter.cl, method="unifrac") ~ Koala, data = metadata.cl)
+adonis(distance(ps.rar.tablefilter.ml, method="unifrac") ~ Koala, data = metadata.ml)
+adonis(distance(ps.rar.tablefilter.cl, method="wunifrac") ~ Koala, data = metadata.cl)
+adonis(distance(ps.rar.tablefilter.ml, method="wunifrac") ~ Koala, data = metadata.ml)
+
+```
+
+# Taxonomic bar plots (Figure 4)
+```{r}
+library(ggh4x)
+library(ggtext)
+
+#Collapse to family level
+ps.family <- tax_glom(ps.rar.tablefilter, taxrank = "Family", NArm = FALSE)
+
+#Extract top 20 most abundant family names, bind to ps sampledata
+top20families = names(sort(taxa_sums(ps.family), TRUE)[1:20])
+taxtab20 = cbind(tax_table(ps.family), family_20 = NA)
+taxtab20[top20families, "family_20"] <- as(tax_table(ps.family)
+                                           [top20families, "Family"], "character")
+tax_table(ps.family) <- tax_table(taxtab20)
+
+ps.family.ra <- transform_sample_counts(ps.family, function(x) 100 * x/sum(x))
+
+#Melt into a dataframe
+pd.family <- psmelt(ps.family.ra)
+
+#Replace NA with 'other', for plotting purposes
+pd.family <- arrange(pd.family, Koala_Collection)
+pd.family$family_20[is.na(pd.family$family_20)] <- c("Other")
+
+#Relative abundance of top 20 families?
+mean(sample_sums(prune_taxa(top20families, ps.family.ra)))
+
+#Plot em
+#pd.family.plot <- 
+  
+  ggplot(pd.family, aes(x = Koala_Collection, y = Abundance,
+                                        fill = fct_reorder(family_20, -Abundance))) +
+  geom_bar(width = 0.9, stat = "identity") +
+  facet_nested(~Location_sampled + Koala, scales = "free", space = "free", ) +
+  labs(x = "", y = "Relative abundance") +
+  theme(
+        axis.text.y = element_text(size=16, face = 'bold'),
+        axis.title.y = element_text(size=16, face = 'bold'),
+        axis.ticks.y = element_line(size = 1),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 18),
+        legend.position = "bottom",
+        strip.background = element_blank(),
+        strip.text = element_textbox_simple(
+          padding = margin(5, 0, 5, 0),
+          margin = margin(5, 5, 5, 5),
+          size = 14,
+          face = "bold",
+          halign = 0.5,
+          fill = "white",
+          box.color = "grey",
+          linewidth = 1.5,
+          linetype = "solid",),
+        panel.background = element_blank()
+        ) +
+  scale_fill_manual(values = 
+      c("Bacteroidaceae" = "#228B22", "[Eubacterium]_coprostanoligenes_group" = "#3CB371",
+        "Akkermansiaceae" = "#2E8B57", "Tannerellaceae" = "#8FBC8F",
+        "Christensenellaceae" = "#191970", "Clostridiaceae" = "#db6d00",
+        "Paludibacteraceae" = "#66CCEE", "Muribaculaceae" = "#FF1493",
+        "Erysipelatoclostridiaceae" = "#0000FF", "Lachnospiraceae" = "#B8860B",
+        "Oscillospiraceae" = "#FF6347", "Acidaminococcaceae" = "#F0E68C",
+        "Pasteurellaceae" = "#FF69B4", "Desulfovibrionaceae" = "#FFC0CB",
+        "Prevotellaceae" = "#FFFF00", "Rikenellaceae" = "#00FF7F",
+        "Ruminococcaceae" = "#b66dff", "vadinHA49" = "#FF00FF",
+        "Synergistaceae" = "#8B0000", "Gastranaerophilales" = "#000000", "Other" = "#808080")
+  )
+
+# ggsave(filename = "output/Figure_4.pdf", 
+#        width = 20, height = 12, dpi = 300)
+
+
+```
+
+# Mean relative abundances of select microbial families between CL/ML (main text)
+```{r warnings = FALSE}
+#Merge samples by geographic location
+ps.family.merged <- merge_samples(ps.family, "Location_sampled")
+
+ps.family.merged.relab <- transform_sample_counts(ps.family.merged, function(x) x / sum(x))
+ps.family.merged.relab@otu_table <- phyloseq::t(ps.family.merged.relab@otu_table)
+#Had to transpose otu table, as merge_samples flips it for some reason...
+
+ps.family.merged.relab.tax <- as.data.frame(tax_table(ps.family.merged.relab))
+ps.family.merged.relab.otu.and.tax <- cbind(ps.family.merged.relab.tax, 
+                                              ps.family.merged.relab@otu_table)
+
+DT::datatable(ps.family.merged.relab.otu.and.tax)
+
+```
+
+# Venn diagram (SI figure X)
+```{r warning = FALSE}
+ps.rar.tablefilter.cl.table <- otu_table(ps.rar.tablefilter.cl)
+ps.rar.tablefilter.ml.table <- otu_table(ps.rar.tablefilter.ml)
+
+#For each ASV (row), if abundance > 0, print ASV (rowname) to a vector 
+venn.CL <- rownames(ps.rar.tablefilter.cl.table[ apply(ps.rar.tablefilter.cl.table, MARGIN = 1, function(x) any(x > 0))])
+
+venn.ML <- rownames(ps.rar.tablefilter.ml.table[ apply(ps.rar.tablefilter.ml.table, MARGIN = 1, function(x) any(x > 0))])
+
+ppn.comparison <- list("Cleland" = venn.CL, "Mountain Lagoon" = venn.ML)
+
+venn.diagram(ppn.comparison, print.mode = c("raw","percent"), fill = c("red", "blue"), inverted = TRUE, 
+             imagetype = "png", filename = "output/SI_figure3.png", cat.pos = c(0,0))
+
+#What are the dominant ASVs that are shared between ppns?
+shared.asvs <- inner_join(as.data.frame(venn.CL), as.data.frame(venn.ML), by = c("venn.CL" = "venn.ML"))
+
+shared.asvs.vector <- as.character(shared.asvs$venn.CL)
+
+#Mean relative abundance of shared ASVs
+percent(mean(sample_sums(prune_taxa(shared.asvs.vector, ps.rar.tablefilter)))/
+  mean(sample_sums(ps.rar.tablefilter)))
+
+```
+
+# ASV-level analyses (Table 2)
+```{r}
+library(gridExtra)
+
+options(digits=3)
+
+##How many ASVs are always present in a given koala through time?
+#Create a list of each subset that I want (per koala)
+koala_list <- c(
+  ps.blaze <- subset_samples(ps.rar.tablefilter, Koala=="Blaze"),
+  ps.byron <- subset_samples(ps.rar.tablefilter, Koala=="Byron"),
+  ps.cin <- subset_samples(ps.rar.tablefilter, Koala=="Cin"),
+  ps.claudette <- subset_samples(ps.rar.tablefilter, Koala=="Claudette"),
+  ps.george <- subset_samples(ps.rar.tablefilter, Koala=="George"),
+  ps.leo <- subset_samples(ps.rar.tablefilter, Koala=="Leo"),
+  ps.lola <- subset_samples(ps.rar.tablefilter, Koala=="Lola"),
+  ps.phasco <- subset_samples(ps.rar.tablefilter, Koala=="Phasco"),
+  ps.reus <- subset_samples(ps.rar.tablefilter, Koala=="Reus"),
+  ps.theo <- subset_samples(ps.rar.tablefilter, Koala=="Theo"),
+  ps.tos <- subset_samples(ps.rar.tablefilter, Koala=="Tos"),
+  ps.uno <- subset_samples(ps.rar.tablefilter, Koala=="Uno")
+)
+
+#Create functions to use in loop
+gen_x <- function(ps){
+  print(length(taxa_names(filter_taxa(ps, function(x) sum(x) > 0 , TRUE))))
+}
+gen_y <- function(ps){
+  print(length(taxa_names(core(ps, detection =1, prevalence =0.999))))
+}
+gen_z <- function(ps){
+  print(mean(sample_sums(core(ps, detection =1, prevalence =0.999))) / mean(sample_sums(ps)))
+}
+gen_zz <- function(ps){
+  print(length(taxa_names(core(ps, detection = 1, prevalence = 0))) - length(taxa_names(core(ps, detection = 1, prevalence = 1/length(sample_sums(ps))))))
+}
+
+
+
+
+
+#Create dataframe of length koalalist
+ASVresults <- data.frame(totalASVs_per_koala=rep(0,length(koala_list)),
+                      total_core_ASVs=rep(0,length(koala_list)),
+                      mean_rel_abun_core_ASVs=rep(0,length(koala_list)),
+                      num_singleton_ASVs_per_koala=rep(0, length(koala_list)))
+row.names(ASVresults) <- sort(unique(ps.rar@sam_data$Koala))
+
+#Loop over each subsetted phyloseq object, outputting results into the dataframe!
+for (ps in 1:length(koala_list)){
+  x <- gen_x(koala_list[[ps]])
+  y <- gen_y(koala_list[[ps]])
+  z <- gen_z(koala_list[[ps]])
+  zz <- gen_zz(koala_list[[ps]])
+  ASVresults[ps, 1] <- x
+  ASVresults[ps, 2] <- y
+  ASVresults[ps, 3] <- z
+  ASVresults[ps, 4] <- zz
+}
+
+knitr::kable(
+  ASVresults
+)
+
+```
+
+
+# Lonepinella prevalance/abundance
+```{r}
+#Get ASV IDs
+lp_ids <- tax_table(ps.rar.tablefilter) %>%
+                as.data.frame() %>%
+                filter(Genus == "Lonepinella") %>%
+                row.names()
+
+#Calculate prevalence, min, max, and mean relative abundance
+ps.lp.gen <- prune_taxa(lp_ids, ps.rar.tablefilter) %>%
+  tax_glom(taxrank = "Genus", NArm = FALSE)
+  
+ps.rar.gen <- tax_glom(ps.rar.tablefilter, taxrank = "Genus", NArm = FALSE)
+
+mean(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
+
+min(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
+
+max(sample_sums(ps.lp.gen)/sample_sums(ps.rar.gen)) %>%
+  percent(accuracy = 0.01)
+
+prevalence(ps.lp.gen)
+
+```
+
+
+
+
+#Software/package versions
+```{r}
+sessionInfo()
+```
+
+
+
+=======
 ---
 title: "R_analyses"
 author: "EisenRa"
@@ -653,3 +1315,4 @@ sessionInfo()
 
 
 
+>>>>>>> 471c56890aa76b70372842ffd6f7916fbb7e89d4
