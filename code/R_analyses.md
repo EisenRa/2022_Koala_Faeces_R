@@ -1,7 +1,7 @@
 R_analyses for 2022 koala faecal microbiota study
 ================
 Raphael Eisenhofer
-Oct 11, 2022
+Oct 17, 2022
 
 -   <a href="#load-packages-import-data"
     id="toc-load-packages-import-data">Load packages, import data</a>
@@ -821,7 +821,7 @@ ps.family <- tax_glom(ps.rar, taxrank = "Family", NArm = FALSE)
 top20families = names(sort(taxa_sums(ps.family), TRUE)[1:20])
 taxtab20 = cbind(tax_table(ps.family), family_20 = NA)
 taxtab20[top20families, "family_20"] <- as(tax_table(ps.family)
-                                           [top20families, "Phylum"], "character")
+                                           [top20families, "Family"], "character")
 tax_table(ps.family) <- tax_table(taxtab20)
 
 ps.family.ra <- transform_sample_counts(ps.family, function(x) 100 * x/sum(x))
@@ -1217,51 +1217,54 @@ sessionInfo()
     ## [19] dplyr_1.0.7         purrr_0.3.4         readr_2.1.1        
     ## [22] tidyr_1.1.4         tibble_3.1.6        tidyverse_1.3.1    
     ## [25] microbiome_1.16.0   scales_1.1.1        ggplot2_3.3.5      
-    ## [28] qiime2R_0.99.6      phyloseq_1.38.0    
+    ## [28] qiime2R_0.99.6      phyloseq_1.38.0     workflowr_1.7.0    
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] readxl_1.3.1           backports_1.4.1        Hmisc_4.6-0           
-    ##   [4] systemfonts_1.0.3      plyr_1.8.6             igraph_1.2.11         
-    ##   [7] sp_1.4-6               splines_4.1.2          crosstalk_1.2.0       
-    ##  [10] GenomeInfoDb_1.30.0    digest_0.6.29          foreach_1.5.1         
-    ##  [13] htmltools_0.5.2        fansi_0.5.0            magrittr_2.0.1        
-    ##  [16] checkmate_2.0.0        cluster_2.1.2          tzdb_0.2.0            
-    ##  [19] Biostrings_2.62.0      modelr_0.1.8           jpeg_0.1-9            
-    ##  [22] colorspace_2.0-2       rvest_1.0.2            textshaping_0.3.6     
-    ##  [25] haven_2.4.3            xfun_0.33              callr_3.7.0           
-    ##  [28] crayon_1.4.2           RCurl_1.98-1.5         jsonlite_1.7.2        
-    ##  [31] survival_3.2-13        iterators_1.0.13       ape_5.6-1             
-    ##  [34] glue_1.6.0             gtable_0.3.0           zlibbioc_1.40.0       
-    ##  [37] XVector_0.34.0         webshot_0.5.4          car_3.0-12            
-    ##  [40] Rhdf5lib_1.16.0        BiocGenerics_0.40.0    abind_1.4-5           
-    ##  [43] futile.options_1.0.1   DBI_1.1.2              rstatix_0.7.0         
-    ##  [46] Rcpp_1.0.7             gridtext_0.1.4         htmlTable_2.4.0       
-    ##  [49] foreign_0.8-81         Formula_1.2-4          stats4_4.1.2          
-    ##  [52] DT_0.20                truncnorm_1.0-8        htmlwidgets_1.5.4     
-    ##  [55] httr_1.4.2             RColorBrewer_1.1-2     ellipsis_0.3.2        
-    ##  [58] pkgconfig_2.0.3        NADA_1.6-1.1           farver_2.1.0          
-    ##  [61] sass_0.4.2             nnet_7.3-16            dbplyr_2.1.1          
-    ##  [64] utf8_1.2.2             tidyselect_1.1.1       labeling_0.4.2        
-    ##  [67] rlang_0.4.12           reshape2_1.4.4         cachem_1.0.6          
-    ##  [70] munsell_0.5.0          cellranger_1.1.0       tools_4.1.2           
-    ##  [73] cli_3.1.0              generics_0.1.1         ade4_1.7-18           
-    ##  [76] broom_0.7.11           evaluate_0.14          biomformat_1.22.0     
-    ##  [79] fastmap_1.1.0          ragg_1.2.2             yaml_2.2.1            
-    ##  [82] processx_3.5.2         knitr_1.37             fs_1.5.2              
-    ##  [85] RgoogleMaps_1.4.5.3    nlme_3.1-153           formatR_1.11          
-    ##  [88] xml2_1.3.3             compiler_4.1.2         rstudioapi_0.13       
-    ##  [91] curl_4.3.2             png_0.1-7              ggsignif_0.6.3        
-    ##  [94] zCompositions_1.3.4    reprex_2.0.1           bslib_0.4.0           
-    ##  [97] stringi_1.7.6          ps_1.6.0               highr_0.9             
-    ## [100] markdown_1.1           nloptr_1.2.2.3         multtest_2.50.0       
-    ## [103] vctrs_0.3.8            pillar_1.6.4           lifecycle_1.0.1       
-    ## [106] rhdf5filters_1.6.0     jquerylib_0.1.4        cowplot_1.1.1         
-    ## [109] data.table_1.14.2      bitops_1.0-7           R6_2.5.1              
-    ## [112] latticeExtra_0.6-29    IRanges_2.28.0         codetools_0.2-18      
-    ## [115] lambda.r_1.2.4         boot_1.3-28            MASS_7.3-54           
-    ## [118] assertthat_0.2.1       rhdf5_2.38.0           rjson_0.2.21          
-    ## [121] withr_2.4.3            S4Vectors_0.32.3       GenomeInfoDbData_1.2.7
-    ## [124] mgcv_1.8-38            parallel_4.1.2         hms_1.1.1             
-    ## [127] rpart_4.1-15           minqa_1.2.4            rmarkdown_2.17        
-    ## [130] carData_3.0-5          Rtsne_0.15             numDeriv_2016.8-1.1   
-    ## [133] Biobase_2.54.0         lubridate_1.8.0        base64enc_0.1-3
+    ##   [1] utf8_1.2.2             tidyselect_1.1.1       htmlwidgets_1.5.4     
+    ##   [4] Rtsne_0.15             munsell_0.5.0          codetools_0.2-18      
+    ##   [7] ragg_1.2.2             DT_0.20                withr_2.4.3           
+    ##  [10] colorspace_2.0-2       Biobase_2.54.0         highr_0.9             
+    ##  [13] knitr_1.37             rstudioapi_0.13        stats4_4.1.2          
+    ##  [16] ggsignif_0.6.3         labeling_0.4.2         git2r_0.29.0          
+    ##  [19] RgoogleMaps_1.4.5.3    GenomeInfoDbData_1.2.7 farver_2.1.0          
+    ##  [22] rhdf5_2.38.0           rprojroot_2.0.2        vctrs_0.3.8           
+    ##  [25] generics_0.1.1         lambda.r_1.2.4         xfun_0.33             
+    ##  [28] R6_2.5.1               markdown_1.1           GenomeInfoDb_1.30.0   
+    ##  [31] cachem_1.0.6           bitops_1.0-7           rhdf5filters_1.6.0    
+    ##  [34] assertthat_0.2.1       promises_1.2.0.1       nnet_7.3-16           
+    ##  [37] gtable_0.3.0           processx_3.5.2         rlang_0.4.12          
+    ##  [40] systemfonts_1.0.3      splines_4.1.2          rstatix_0.7.0         
+    ##  [43] broom_0.7.11           checkmate_2.0.0        yaml_2.2.1            
+    ##  [46] reshape2_1.4.4         abind_1.4-5            modelr_0.1.8          
+    ##  [49] crosstalk_1.2.0        backports_1.4.1        httpuv_1.6.5          
+    ##  [52] Hmisc_4.6-0            gridtext_0.1.4         tools_4.1.2           
+    ##  [55] zCompositions_1.3.4    ellipsis_0.3.2         jquerylib_0.1.4       
+    ##  [58] biomformat_1.22.0      RColorBrewer_1.1-2     BiocGenerics_0.40.0   
+    ##  [61] Rcpp_1.0.7             plyr_1.8.6             base64enc_0.1-3       
+    ##  [64] zlibbioc_1.40.0        RCurl_1.98-1.5         ps_1.6.0              
+    ##  [67] rpart_4.1-15           cowplot_1.1.1          S4Vectors_0.32.3      
+    ##  [70] haven_2.4.3            cluster_2.1.2          fs_1.5.2              
+    ##  [73] magrittr_2.0.1         data.table_1.14.2      futile.options_1.0.1  
+    ##  [76] reprex_2.0.1           truncnorm_1.0-8        whisker_0.4           
+    ##  [79] hms_1.1.1              evaluate_0.14          jpeg_0.1-9            
+    ##  [82] readxl_1.3.1           IRanges_2.28.0         compiler_4.1.2        
+    ##  [85] crayon_1.4.2           minqa_1.2.4            htmltools_0.5.2       
+    ##  [88] mgcv_1.8-38            later_1.3.0            tzdb_0.2.0            
+    ##  [91] Formula_1.2-4          lubridate_1.8.0        DBI_1.1.2             
+    ##  [94] formatR_1.11           dbplyr_2.1.1           MASS_7.3-54           
+    ##  [97] boot_1.3-28            ade4_1.7-18            car_3.0-12            
+    ## [100] cli_3.1.0              parallel_4.1.2         igraph_1.2.11         
+    ## [103] pkgconfig_2.0.3        getPass_0.2-2          numDeriv_2016.8-1.1   
+    ## [106] foreign_0.8-81         sp_1.4-6               xml2_1.3.3            
+    ## [109] foreach_1.5.1          bslib_0.4.0            webshot_0.5.4         
+    ## [112] multtest_2.50.0        XVector_0.34.0         rvest_1.0.2           
+    ## [115] NADA_1.6-1.1           callr_3.7.0            digest_0.6.29         
+    ## [118] Biostrings_2.62.0      rmarkdown_2.17         cellranger_1.1.0      
+    ## [121] htmlTable_2.4.0        curl_4.3.2             rjson_0.2.21          
+    ## [124] nloptr_1.2.2.3         lifecycle_1.0.1        nlme_3.1-153          
+    ## [127] jsonlite_1.7.2         Rhdf5lib_1.16.0        carData_3.0-5         
+    ## [130] fansi_0.5.0            pillar_1.6.4           fastmap_1.1.0         
+    ## [133] httr_1.4.2             survival_3.2-13        glue_1.6.0            
+    ## [136] png_0.1-7              iterators_1.0.13       stringi_1.7.6         
+    ## [139] sass_0.4.2             textshaping_0.3.6      latticeExtra_0.6-29   
+    ## [142] ape_5.6-1
